@@ -13,16 +13,17 @@ class Ajax_Calls {
 	}
 
 	public function create_account() {
+		check_ajax_referer( 'form-controller', 'security' );
 		$new = new Form_Function();
-		// Assigning all the useful variables 
+		// Assigning all the useful variables
 		$username = $_POST['uname'];
-		$name = $_POST['fname'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-		$phone = $_POST['phone'];
-		
+		$name     = $_POST['fname'];
+		$email    = $_POST['email'];
+		$password = $_POST['password'];
+		$phone    = $_POST['phone'];
+
 		// Finally creating the user.
-		return $new->register_user($username,$name,$email,$phone,$password);
+		return $new->register_user( $username, $name, $email, $phone, $password );
 	}
 }
 

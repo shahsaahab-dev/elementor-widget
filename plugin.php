@@ -33,7 +33,8 @@ class Plugin {
 			'form-controller',
 			'control_form',
 			array(
-				'ajaxurl' => admin_url( 'admin-ajax.php' ),
+				'ajaxurl'  => admin_url( 'admin-ajax.php' ),
+				'security' => wp_create_nonce( 'form-controller' ),
 			)
 		);
 	}
@@ -60,7 +61,6 @@ class Plugin {
 		// Stylesheets
 		add_action( 'elementor/frontend/after_enqueue_styles', array( $this, 'widget_styles' ) );
 		add_action( 'elementor/widgets/widgets_registered', array( $this, 'register_widgets' ) );
-		
 
 		// API Calls
 		require_once __DIR__ . '/inc/form-controller.php';

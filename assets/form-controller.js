@@ -18,7 +18,8 @@ jQuery(document).ready(function ($) {
                 email: email,
                 phone: phone,
                 password: password,
-                action: 'create_account'
+                action: 'create_account',
+                security:control_form.security,
             },
             success: function (response) {
                 console.log(response);
