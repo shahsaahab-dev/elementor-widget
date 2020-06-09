@@ -94,11 +94,11 @@ class Registration extends Widget_Base {
 				<h2 class="fs-title">Account Information</h2>
 				<h3>Tell us something about yourself</h3>
 				<div class="first-step-signup">
-					<input type="text" name="username" id="fname" placeholder="Your Username Here">
-					<input type="text" name="name" placeholder="Your Name Here">
-					<input type="email" name="email" placeholder="Your Email Here">
-					<input type="text" name="phone" placeholder="Your Phone Here">
-					<input type="password" name="password" placeholder="Your Password Here">
+					<input type="text" name="username" id="uname" placeholder="Your Username Here">
+					<input type="text" name="name" id="name" placeholder="Your Name Here">
+					<input type="email" name="email" id="email" placeholder="Your Email Here">
+					<input type="text" name="phone" id="phone" placeholder="Your Phone Here">
+					<input type="password" name="password" id="password" placeholder="Your Password Here">
 				</div>
 				<input type="button" name="next" class="submit-first" value="Register" />
 			</fieldset>

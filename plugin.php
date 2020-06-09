@@ -55,11 +55,12 @@ class Plugin {
 	// Register Hooks
 	public function __construct() {
 		// register widget scripts
+		add_action( 'wp_enqueue_scripts', array( $this, 'custom_scripts' ) );
 		add_action( 'elementor/frontend/after_register_scripts', array( $this, 'widget_scripts' ) );
 		// Stylesheets
 		add_action( 'elementor/frontend/after_enqueue_styles', array( $this, 'widget_styles' ) );
 		add_action( 'elementor/widgets/widgets_registered', array( $this, 'register_widgets' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'custom_scripts' ) );
+		
 
 		// API Calls
 		require_once __DIR__ . '/inc/form-controller.php';

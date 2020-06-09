@@ -4,8 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-
-
+require_once __DIR__ . '/functions.php';
 
 class Ajax_Calls {
 	public function __construct() {
@@ -14,8 +13,16 @@ class Ajax_Calls {
 	}
 
 	public function create_account() {
-		$name = $_POST['firstname'];
-		wp_send_json( $name );
+		$new = new Form_Function();
+		// Assigning all the useful variables 
+		$username = $_POST['uname'];
+		$name = $_POST['fname'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+		$phone = $_POST['phone'];
+		
+		// Finally creating the user.
+		return $new->register_user($username,$name,$email,$phone,$password);
 	}
 }
 
