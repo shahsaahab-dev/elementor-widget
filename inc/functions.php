@@ -2,10 +2,52 @@
 
 class Form_Function{
     
+    // Registration Function
     public function register_user($username,$name,$email,$phone,$password){
-        $build_string = $username . $name . $email . $phone . $password;
-        wp_send_json($build_string);
-        // All Working
+        // Lets create the user here 
+        $userdata = array(
+            'user_pass'             => $password,
+            'user_login'            => $username,
+            'user_nicename'         => $name,
+            'user_email'            => $email
+         
+        );
+        if(!empty($password) && !empty($username) && !empty($name) && !empty($email)){
+            if(!strlen($password) < 8 && !strlen($username) < 4 && !strlen($name) < 2 && !strlen($email) < 5)
+            {
+                $user_id = wp_insert_user($userdata);
+                update_user_meta($user_id,"phone",$phone);
+                update_user_meta($user_id,"email_verified","no");
+                wp_set_current_user($user_id);
+                wp_set_auth_cookie($user_id);
+            }
+        }
+        else{
+            wp_send_json(array(
+                "code" => 2,
+                "message" => __("One or More fields were left empty","custom-elementor"),
+            ));
+
+        }
+
+        // Sending the Suceess or Error Message
+        if($user_id){
+            wp_send_json(array(
+                "code" => 1,
+                "message" => __("Your account has been created","custom-elementor"),
+            ));
+        }
+        else{
+            wp_send_json(array(
+                "code" => 0,
+                "message" => __("Your account could not be created. Try Again","custom-elementor"),
+            ));
+
+        }
+        wp_die();
+    }
+
+    public function send_email_verify(){
         
     }
 }

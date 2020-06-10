@@ -214,3 +214,26 @@ ul#progressbar {
     background: #C5C5F1;
     text-decoration: none;
 }
+
+.success-message {
+    position: absolute;
+    top: 0;
+    text-align: center;
+    background: #58ca3b;
+    left: 0;
+    width: 100%;
+    color: #fff;
+    padding: 10px;
+    display:none;
+}
+.failure-message {
+    position: absolute;
+    top: 0;
+    text-align: center;
+    background: red;
+    left: 0;
+    width: 100%;
+    color: #fff;
+    padding: 10px;
+    display:none;
+}
