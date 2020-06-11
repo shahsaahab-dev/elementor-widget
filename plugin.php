@@ -68,7 +68,8 @@ class Plugin {
 		require_once __DIR__ . '/inc/profile-settings.php';
 
 		// Do the required actions
-		echo __DIR__ . '/inc/required-pages.php';
+		require  __DIR__ . '/inc/required-pages.php';
+
 	}
 
 }
