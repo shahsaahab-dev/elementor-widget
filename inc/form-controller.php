@@ -18,14 +18,14 @@ class Ajax_Calls {
 		$new = new Form_Function();
 
 		// Assigning all the useful variables
-		$username = sanitize_text_field($_POST['uname']);
-		$name     = sanitize_text_field($_POST['fname']);
-		$email    = sanitize_text_field($_POST['email']);
-		$password = sanitize_text_field($_POST['password']);
-		$phone    = sanitize_text_field($_POST['phone']);
-		$fields = array($username,$name,$email,$password);
+		$username = sanitize_text_field( $_POST['uname'] );
+		$name     = sanitize_text_field( $_POST['fname'] );
+		$email    = sanitize_text_field( $_POST['email'] );
+		$password = sanitize_text_field( $_POST['password'] );
+		$phone    = sanitize_text_field( $_POST['phone'] );
+		$fields   = array( $username, $name, $email, $password );
 
-		$new->register_user( $username, $name, $email, $phone, $password );
+		$register = $new->register_user( $username, $name, $email, $phone, $password );
 	}
 
 

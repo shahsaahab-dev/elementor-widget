@@ -192,6 +192,10 @@ ul#progressbar {
     background: #ee0979;
     color: white;
 }
+#progressbar li.completed:before, #progressbar li.completed:after {
+    background: #42aa00;
+    color: white;
+}
 
 
 /* Not relevant to this form */

@@ -81,25 +81,49 @@ class Registration extends Widget_Base {
 		$settings = $this->get_settings_for_display();?>
 <div class="row">
 	<div class="col-xl-12">
-	<h3 class="text-center text-white">Become A Donor</h3>
+		<h3 class="text-center text-white">Become A Donor</h3>
 		<form id="msform" method="post" action="#">
 			<!-- progressbar -->
 			<ul id="progressbar">
-				<?php $verification = get_user_meta(get_current_user_id(),"email_verified") ?>
-				<li class="<?php if(!is_user_logged_in()){echo"active";}else{echo"";} ?>">Account Information</li>
-				<li class=" <?php if(is_user_logged_in() && $verification = "no"){echo"active";}else{echo "";} ?>">Email Verification</li>
-				<li>Final Step of Registration</li>
-			</ul>
-			<?php 
-			if(!is_user_logged_in()){
+				<?php $verification = get_user_meta( get_current_user_id(), 'email_verified' ); ?>
+				<li class="
+				<?php
+				if ( ! is_user_logged_in() ) {
+					echo 'active';
+				} else {
+					echo 'completed';}
 				?>
-				<!-- fieldsets -->
+				">Account Information</li>
+
+				<li class=" 
+				<?php
+				if ( is_user_logged_in() && $verification[0] == 'no' ) {
+					echo 'active';
+				} elseif ( ! is_user_logged_in() && $verification[0] == 'no' ) {
+					echo '';
+				} else {
+					echo 'completed';}
+				?>
+				">Email Verification</li>
+				<li class="
+				<?php
+				if ( is_user_logged_in() && $verification[0] == 'yes' ) {
+					echo 'active';
+				} else {
+					echo '';}
+				?>
+				">Final Step of Registration</li>
+			</ul>
+			<?php
+			if ( ! is_user_logged_in() ) {
+				?>
+			<!-- fieldsets -->
 			<fieldset class="text-center">
 				<h2 class="fs-title">Account Information</h2>
 				<h3>Tell us something about yourself</h3>
 				<div class="first-step-signup">
-				<div class="success-message"></div>
-				<div class="failure-message"></div>
+					<div class="success-message"></div>
+					<div class="failure-message"></div>
 					<input type="text" name="username" id="uname" placeholder="Your Username Here">
 					<input type="text" name="name" id="name" placeholder="Your Name Here">
 					<input type="email" name="email" id="email" placeholder="Your Email Here">
@@ -112,12 +136,15 @@ class Registration extends Widget_Base {
 			}
 			?>
 
+			<?php
+			if ( is_user_logged_in() && $verification[0] == 'no' ) {
+				?>
 			<fieldset class="text-center">
 				<h2 class="fs-title text-center">Email Verification</h2>
 				<h3 class="text-center">Verify Your Email Address</h3>
 				<p class="text-center">Looks like your email isnt verified Yet. Verify and Refresh this Page</p>
-				<input type="button" name="next" class="next action-button" value="Next"/>
 			</fieldset>
+				<?php } ?>
 
 			<fieldset class="text-center">
 				<h2 class="fs-title">Some More information About you</h2>
@@ -130,7 +157,8 @@ class Registration extends Widget_Base {
 					</textarea>
 
 					<input type="password" name="password" placeholder="Your Password Here">
-					<label for="pprofile">Choose Profile Picture<input type="file" name="pprofile" id="profile-picture"></label>
+					<label for="pprofile">Choose Profile Picture<input type="file" name="pprofile"
+							id="profile-picture"></label>
 					<input type="text" name="address" placeholder="Your Address Here">
 					<label for="proof">Passport/ID Card<input type="file" name="proof" id="proof"></label>
 				</div>
