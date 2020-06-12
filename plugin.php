@@ -67,8 +67,8 @@ class Plugin {
 		// Custom Edit Profile Fields
 		require_once __DIR__ . '/inc/profile-settings.php';
 
-		// Do the required actions
-		echo __DIR__ . '/inc/required-pages.php';
+		// Required Pages 
+		require_once __DIR__ . '/inc/required-pages.php';
 	}
 
 }

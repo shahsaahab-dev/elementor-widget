@@ -51,6 +51,7 @@ class Form_Function {
 		wp_die();
 	}
 
+	// Sending Email Function
 	public function send_email_verify( $username, $email ) {
 		$create_nonce = wp_create_nonce( $username . $email );
 		$subject      = __( 'Verify Your Email Address', 'custom-elementor' );
