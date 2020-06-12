@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 require_once __DIR__ . '/db_query.php';
 class Make_Required {

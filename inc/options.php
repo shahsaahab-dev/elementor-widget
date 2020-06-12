@@ -7,6 +7,6 @@ class Options{
         * Creating Donor Table
         * Through SQL Queries
         */
-        get_option('email_verification')
+        get_option('email_verification');
     }
 }
