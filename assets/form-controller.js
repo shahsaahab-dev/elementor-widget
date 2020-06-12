@@ -73,5 +73,47 @@ jQuery(document).ready(function ($) {
 
             },
         });
+    });
+
+    // Donor Information last Step
+    $(".last-signup").on("click", function () {
+        var iban = $("#iban").val();
+        var revolut = $("#revolut").val();
+        var bitcoin = $("#bitcoin").val();
+        var desc = $("#desc").val();
+        var address = $("#address").val();
+        $.ajax({
+            url: ajax_url,
+            type: 'post',
+            data: {
+                iban: iban,
+                revolut: revolut,
+                bitcoin: bitcoin,
+                desc: desc,
+                address: address,
+                action: 'donor_information',
+                security: control_form.security,
+            },
+            success: function (response) {
+                if (response.code == 1) {
+                    $(".failure-message").remove();
+                    $(".success-message").text(response.message);
+                    $(".success-message").slideDown("slow");
+                    $(".first-step-signup").slideDown("slow");
+                    location.reload();
+
+                }
+                else if (response.code == 2) {
+                    $(".failure-message").text(response.message);
+                    $(".failure-message").slideDown("slow");
+
+                }
+                else {
+                    $(".failure-message").text(response.message);
+                    $(".failure-message").slideDown("slow");
+                }
+
+            },
+        });
     })
 })

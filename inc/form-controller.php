@@ -11,6 +11,10 @@ class Ajax_Calls {
 	public function __construct() {
 		add_action( 'wp_ajax_create_account', array( $this, 'create_account' ) );
 		add_action( 'wp_ajax_nopriv_create_account', array( $this, 'create_account' ) );
+
+		// Donor Information Ajax 
+		add_action( 'wp_ajax_donor_information', array( $this, 'donor_information' ) );
+		add_action( 'wp_ajax_nopriv_donor_information', array( $this, 'donor_information' ) );
 	}
 
 	public function create_account() {
@@ -26,6 +30,21 @@ class Ajax_Calls {
 		$fields   = array( $username, $name, $email, $password );
 
 		$register = $new->register_user( $username, $name, $email, $phone, $password );
+	}
+
+
+	public function donor_information(){
+		$user_id = get_current_user_id();
+		$new = new Form_Function();
+		// Sanitizing and Assigning variables 
+		$iban = sanitize_text_field($_POST['iban']);
+		$revolut = sanitize_text_field($_POST['revolut']);
+		$bitcoin = sanitize_text_field($_POST['bitcoint']);
+		$description = sanitize_text_field($_POST['description']);
+		$address = sanitize_text_field($_POST['address']);
+
+		$update_donor = $new->donor_info_form($user_id,$iban,$revolut,$bitcoin,$description,$address);
+
 	}
 
 

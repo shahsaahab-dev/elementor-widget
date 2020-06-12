@@ -72,6 +72,9 @@ class Plugin {
 
 		// Required Shortcodes 
 		require_once __DIR__ . '/inc/shortcodes.php';
+
+		// Required User Roles 
+		require_once __DIR__ . '/inc/roles.php';
 	}
 
 }

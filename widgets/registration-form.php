@@ -82,7 +82,7 @@ class Registration extends Widget_Base {
 <div class="row">
 	<div class="col-xl-12">
 		<h3 class="text-center text-white">Become A Donor</h3>
-		<form id="msform" method="post" action="#">
+		<form id="msform" method="post" action="javascript:void(0)">
 			<!-- progressbar -->
 			<ul id="progressbar">
 				<?php $verification = get_user_meta( get_current_user_id(), 'email_verified' ); ?>
@@ -150,19 +150,17 @@ class Registration extends Widget_Base {
 				<h2 class="fs-title">Some More information About you</h2>
 				<h3 class="fs-subtitle">Your presence on the social network</h3>
 				<div class="last-step-signup">
-					<input type="text" name="iban" placeholder="Your IBAN Here">
-					<input type="text" name="revolut" placeholder="Your Revolut Here">
-					<input type="email" name="bitcoin" placeholder="Your Bitcoin Wallet # Here">
+					<input type="text" name="iban" id="iban" placeholder="Your IBAN Here">
+					<input type="text" name="revolut" id="revolut" placeholder="Your Revolut Here">
+					<input type="email" name="bitcoin" id="bitcoin" placeholder="Your Bitcoin Wallet # Here">
 					<textarea name="description" id="desc" cols="10" rows="10" placeholder="Your Project Description">
 					</textarea>
-
-					<input type="password" name="password" placeholder="Your Password Here">
 					<label for="pprofile">Choose Profile Picture<input type="file" name="pprofile"
 							id="profile-picture"></label>
-					<input type="text" name="address" placeholder="Your Address Here">
+					<input type="text" name="address" id="address" placeholder="Your Address Here">
 					<label for="proof">Passport/ID Card<input type="file" name="proof" id="proof"></label>
 				</div>
-				<input type="submit" name="submit_register" class="submit action-button" value="Submit" />
+				<input type="button" name="submit_register" class="last-signup" value="Submit" />
 			</fieldset>
 		</form>
 	</div>

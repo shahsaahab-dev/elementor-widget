@@ -18,9 +18,8 @@ class Profile{
 
 <table class="form-table">
     <tr>
-        <th><label for="contact">Contact</label></th>
-
-        <td><input type="text" class="input-text form-control" name="contact" id="contact" />
+        <th><label for="contact">Phone Number</label></th>
+        <td><input type="text" value="<?php print_r(get_user_meta(get_current_user_id(),'phone')); ?>"></td>
         </td>
  
     </tr>
