@@ -13,10 +13,15 @@ class Make_Required {
 		$check = $new_query->get_a_record("wp_posts","post_name","verify-donor");
 		
 		// Creating Verify Page if it already doesnt exist.
+		$content = '
+		<!-- wp:shortcode -->
+		verify-donor
+		<!-- /wp:shortcode -->';
 		$post_args = array(
 			'post_type' => 'page',
 			'post_name' => 'verify-donor',
 			'post_title' => 'Verification Page',
+			'post_content' => $content,
 			'post_status' => 'publish',
 		);
 		if(!$check){

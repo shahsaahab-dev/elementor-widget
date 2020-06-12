@@ -52,11 +52,23 @@ class Form_Function {
 	}
 
 	// Sending Email Function
-	public function send_email_verify( $username, $email ) {
+	public function send_email_verify() {
 		$create_nonce = wp_create_nonce( $username . $email );
 		$subject      = __( 'Verify Your Email Address', 'custom-elementor' );
 		$message      = __( 'Click Here to Verify your Email Address', 'custom-elementor' );
-		$message     .= '<a href="' . site_url( '/verify_account?' ) . $create_nonce . '">Click Here</a>';
+		$message     .= '<a href="' . site_url( '/verify-donor?verify_user_account' ) .'">Click Here</a>';
 		wp_mail( $email, $subject, $message );
+	}
+
+
+	public function verify_email($id){
+		$verified = get_user_meta($id,'email_verified');
+		if($verified[0] == 'no'){
+			update_user_meta($id,'email_verified','yes');
+		}
+		else{
+			echo '<script>window.location.href = "'.home_url().'"</script>';
+		}
+
 	}
 }

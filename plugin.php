@@ -69,6 +69,9 @@ class Plugin {
 
 		// Required Pages 
 		require_once __DIR__ . '/inc/required-pages.php';
+
+		// Required Shortcodes 
+		require_once __DIR__ . '/inc/shortcodes.php';
 	}
 
 }
