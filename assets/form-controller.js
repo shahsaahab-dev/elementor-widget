@@ -1,5 +1,6 @@
 // Controlling our Ajax functions here 
 var ajax_url = control_form.ajaxurl;
+var site_url = control_form.site_url;
 jQuery(document).ready(function ($) {
     var uname = $("#uname").val();
     var fname = $("#name").val();
@@ -102,8 +103,7 @@ jQuery(document).ready(function ($) {
                     $(".success-message-f").text(response.message);
                     $(".success-message-f").slideDown("slow");
                     $(".first-step-signup").slideDown("slow");
-
-                    console.log(response.dump);
+                    window.location.href = site_url;
                 }
                 else if (response.code == 2) {
                     $(".failure-message-f").text(response.message);

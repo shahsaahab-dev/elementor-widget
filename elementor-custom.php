@@ -2,7 +2,8 @@
 
 /**
  * Plugin Name: Donor Custom Plugin
- * Description: Adding Custom Registration, Email Verification, Multi Step Form, Elementor Shortcode.
+ * Description: Adding Custom Registration, Email Verification, Multi Step Form, Elementor Shortcode,
+ * 				Profile Picture Upload Functionality.
  * Plugin URI:  https://devsyed.com
  * Version:     1.0
  * Author:      Syed Naqi

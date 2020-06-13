@@ -35,6 +35,7 @@ class Plugin {
 			'control_form',
 			array(
 				'ajaxurl'  => admin_url( 'admin-ajax.php' ),
+				'site_url' => home_url(),
 				'security' => wp_create_nonce( 'form-controller' ),
 			)
 		);
@@ -85,6 +86,10 @@ class Plugin {
 
 		// Required User Roles 
 		require_once __DIR__ . '/inc/roles.php';
+
+
+		// Modify Permission 
+		require_once __DIR__ . '/inc/permissions.php';
 
 	}
 

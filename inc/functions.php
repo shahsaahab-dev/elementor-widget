@@ -77,7 +77,7 @@ class Form_Function {
 		update_user_meta($user_id,"IBAN",$iban);
 		update_user_meta($user_id,"Revolut",$revolut);
 		update_user_meta($user_id,"Bitcoin",$bitocoin);
-		update_user_meta($user_id,"Description",$description);
+		update_user_meta($user_id,"desc",$description);
 		update_user_meta($user_id,"Address",$address);
 		
 		wp_send_json(array(

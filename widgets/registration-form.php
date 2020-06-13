@@ -8,7 +8,10 @@ class Registration extends Widget_Base {
 
 	public function gum($field){
 		$store = get_user_meta(get_current_user_id(),$field);
-		echo $store[0];
+		if(!$store[0] == ""){
+			echo "value=" . $store[0];
+		}
+
 	}
 	public function get_name() {
 		return 'registration-module';
@@ -159,9 +162,9 @@ class Registration extends Widget_Base {
 				<div class="last-step-signup">
 				<div class="success-message-f"></div>
 					<div class="failure-message-f"></div>
-					<input type="text" name="iban" id="iban" placeholder="Your IBAN Here">
-					<input type="text" name="revolut" id="revolut" placeholder="Your Revolut Here">
-					<input type="text" name="bitcoin" id="bitcoin" placeholder="Your Bitcoin Wallet # Here" value="<?php $this->gum("Bitcoin") ?> ">
+					<input type="text" name="iban" id="iban" placeholder="Your IBAN Here" <?php $this->gum("IBAN") ; ?>>
+					<input type="text" name="revolut" id="revolut" placeholder="Your Revolut Here" <?php $this->gum("Revolut") ; ?>>
+					<input type="text" name="bitcoin" id="bitcoin" placeholder="Your Bitcoin Wallet # Here" <?php $this->gum("Bitcoin") ; ?>>
 					<textarea name="description" id="desc" cols="10" rows="10" placeholder="Your Project Description" value="<?php $this->gum("desc") ?> ">
 					</textarea>
 					<button id="picture-avatar-upload">Upload</button>
