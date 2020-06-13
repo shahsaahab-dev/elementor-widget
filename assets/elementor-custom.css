@@ -219,7 +219,8 @@ ul#progressbar {
     text-decoration: none;
 }
 
-.success-message {
+.success-message,
+.success-message-f {
     position: absolute;
     top: 0;
     text-align: center;
@@ -230,7 +231,8 @@ ul#progressbar {
     padding: 10px;
     display:none;
 }
-.failure-message {
+.failure-message,
+.failure-message-f {
     position: absolute;
     top: 0;
     text-align: center;
@@ -240,4 +242,23 @@ ul#progressbar {
     color: #fff;
     padding: 10px;
     display:none;
+}
+
+
+/* To Remove Styles */
+.media {
+    background: #fff!important;
+    padding: 15px;
+}
+
+ul.meta-desc {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+ul.meta-desc li {display: inline-block;}
+
+.media h5 {
+    margin: 0px;
 }

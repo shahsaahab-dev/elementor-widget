@@ -10,6 +10,7 @@ class Form_Function {
 			'user_login'    => $username,
 			'user_nicename' => $name,
 			'user_email'    => $email,
+			'role' => 'open_star',
 
 		);
 		if ( ! empty( $password ) && ! empty( $username ) && ! empty( $name ) && ! empty( $email ) ) {
@@ -52,7 +53,7 @@ class Form_Function {
 	}
 
 	// Sending Email Function
-	public function send_email_verify() {
+	public function send_email_verify($username,$email) {
 		$create_nonce = wp_create_nonce( $username . $email );
 		$subject      = __( 'Verify Your Email Address', 'custom-elementor' );
 		$message      = __( 'Click Here to Verify your Email Address', 'custom-elementor' );
@@ -78,7 +79,7 @@ class Form_Function {
 		update_user_meta($user_id,"Bitcoin",$bitocoin);
 		update_user_meta($user_id,"Description",$description);
 		update_user_meta($user_id,"Address",$address);
-
+		
 		wp_send_json(array(
 			"code" => 1,
 			"message" => _("Information Updated"),

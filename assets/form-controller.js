@@ -1,6 +1,5 @@
 // Controlling our Ajax functions here 
 var ajax_url = control_form.ajaxurl;
-
 jQuery(document).ready(function ($) {
     var uname = $("#uname").val();
     var fname = $("#name").val();
@@ -82,6 +81,8 @@ jQuery(document).ready(function ($) {
         var bitcoin = $("#bitcoin").val();
         var desc = $("#desc").val();
         var address = $("#address").val();
+        var addBtn = $("#avatar-image");
+        var url = $("#profile-picture").val();
         $.ajax({
             url: ajax_url,
             type: 'post',
@@ -91,26 +92,27 @@ jQuery(document).ready(function ($) {
                 bitcoin: bitcoin,
                 desc: desc,
                 address: address,
+                pictureUrl: url,
                 action: 'donor_information',
                 security: control_form.security,
             },
             success: function (response) {
                 if (response.code == 1) {
-                    $(".failure-message").remove();
-                    $(".success-message").text(response.message);
-                    $(".success-message").slideDown("slow");
+                    $(".failure-message-f").remove();
+                    $(".success-message-f").text(response.message);
+                    $(".success-message-f").slideDown("slow");
                     $(".first-step-signup").slideDown("slow");
-                    location.reload();
 
+                    console.log(response.dump);
                 }
                 else if (response.code == 2) {
-                    $(".failure-message").text(response.message);
-                    $(".failure-message").slideDown("slow");
+                    $(".failure-message-f").text(response.message);
+                    $(".failure-message-f").slideDown("slow");
 
                 }
                 else {
-                    $(".failure-message").text(response.message);
-                    $(".failure-message").slideDown("slow");
+                    $(".failure-message-f").text(response.message);
+                    $(".failure-message-f").slideDown("slow");
                 }
 
             },

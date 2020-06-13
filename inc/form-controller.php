@@ -15,6 +15,9 @@ class Ajax_Calls {
 		// Donor Information Ajax 
 		add_action( 'wp_ajax_donor_information', array( $this, 'donor_information' ) );
 		add_action( 'wp_ajax_nopriv_donor_information', array( $this, 'donor_information' ) );
+
+		// Grab the avatar that got uploaded 
+		add_filter( 'get_avatar', array($this,'donor_avatar_get'), 10, 5 );
 	}
 
 	public function create_account() {
@@ -42,10 +45,28 @@ class Ajax_Calls {
 		$bitcoin = sanitize_text_field($_POST['bitcoint']);
 		$description = sanitize_text_field($_POST['description']);
 		$address = sanitize_text_field($_POST['address']);
+		$picture_url = $_POST['pictureUrl'];
+		// Handling th Profile Picture 
+		/**
+		 * Create an Empty User meta where we can store the picture.
+		 */
+		update_user_meta($user_id,"profile_picture",$picture_url);
 
+
+		// Finally Calling off the function
 		$update_donor = $new->donor_info_form($user_id,$iban,$revolut,$bitcoin,$description,$address);
 
 	}
+
+
+	public function donor_avatar_get(){
+		$user_id = get_current_user_id();
+		$link = get_user_meta($user_id,"profile_picture");
+		$avatar = '<img src='.$link[0].' width="100px" height="100px">';
+		return $avatar;
+	}
+
+
 
 
 }

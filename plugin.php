@@ -28,6 +28,7 @@ class Plugin {
 		wp_enqueue_script( 'bootstrap', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js', array( 'jquery' ), '1.0', true );
 
 		// Ajax Scripts
+		wp_enqueue_script( 'file-uploader', plugins_url( '/assets/file-uploader.js', __FILE__ ), array( 'jquery' ), '1.0', true );
 		wp_enqueue_script( 'form-controller', plugins_url( '/assets/form-controller.js', __FILE__ ), array( 'jquery' ), '1.0', true );
 		wp_localize_script(
 			'form-controller',
@@ -42,7 +43,13 @@ class Plugin {
 	// Widget Files
 	private function include_widget_files() {
 		require_once __DIR__ . '/widgets/registration-form.php';
+		require_once __DIR__ . '/widgets/user-listing.php';
 
+	}
+
+
+	public function enqueue_media_uploader(){
+		wp_enqueue_media();
 	}
 
 	// register widgets
@@ -51,10 +58,13 @@ class Plugin {
 
 		// Register widgets with elementor
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Registration() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\User_Listing() );
 	}
 
 	// Register Hooks
 	public function __construct() {
+		// enable media uploader on the front-end 
+		add_action('wp_enqueue_scripts',array($this,'enqueue_media_uploader'));
 		// register widget scripts
 		add_action( 'wp_enqueue_scripts', array( $this, 'custom_scripts' ) );
 		add_action( 'elementor/frontend/after_register_scripts', array( $this, 'widget_scripts' ) );
@@ -75,6 +85,7 @@ class Plugin {
 
 		// Required User Roles 
 		require_once __DIR__ . '/inc/roles.php';
+
 	}
 
 }

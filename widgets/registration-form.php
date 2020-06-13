@@ -5,6 +5,11 @@ use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 
 class Registration extends Widget_Base {
+
+	public function gum($field){
+		$store = get_user_meta(get_current_user_id(),$field);
+		echo $store[0];
+	}
 	public function get_name() {
 		return 'registration-module';
 	}
@@ -78,11 +83,13 @@ class Registration extends Widget_Base {
 	}
 
 	protected function render() {
-		$settings = $this->get_settings_for_display();?>
+		$settings = $this->get_settings_for_display();
+
+		?>
 <div class="row">
 	<div class="col-xl-12">
 		<h3 class="text-center text-white">Become A Donor</h3>
-		<form id="msform" method="post" action="javascript:void(0)">
+		<form id="msform" method="post" enctype="multipart/form-data" action="javascript:void()">
 			<!-- progressbar -->
 			<ul id="progressbar">
 				<?php $verification = get_user_meta( get_current_user_id(), 'email_verified' ); ?>
@@ -150,14 +157,16 @@ class Registration extends Widget_Base {
 				<h2 class="fs-title">Some More information About you</h2>
 				<h3 class="fs-subtitle">Your presence on the social network</h3>
 				<div class="last-step-signup">
+				<div class="success-message-f"></div>
+					<div class="failure-message-f"></div>
 					<input type="text" name="iban" id="iban" placeholder="Your IBAN Here">
 					<input type="text" name="revolut" id="revolut" placeholder="Your Revolut Here">
-					<input type="email" name="bitcoin" id="bitcoin" placeholder="Your Bitcoin Wallet # Here">
-					<textarea name="description" id="desc" cols="10" rows="10" placeholder="Your Project Description">
+					<input type="text" name="bitcoin" id="bitcoin" placeholder="Your Bitcoin Wallet # Here" value="<?php $this->gum("Bitcoin") ?> ">
+					<textarea name="description" id="desc" cols="10" rows="10" placeholder="Your Project Description" value="<?php $this->gum("desc") ?> ">
 					</textarea>
-					<label for="pprofile">Choose Profile Picture<input type="file" name="pprofile"
-							id="profile-picture"></label>
-					<input type="text" name="address" id="address" placeholder="Your Address Here">
+					<button id="picture-avatar-upload">Upload</button>
+					<input type="hidden" name="profile_picture" id="profile-picture" value="">
+					<input type="text" name="address" id="address" placeholder="Your Address Here" value="<?php $this->gum("Address") ?> ">
 					<label for="proof">Passport/ID Card<input type="file" name="proof" id="proof"></label>
 				</div>
 				<input type="button" name="submit_register" class="last-signup" value="Submit" />
