@@ -2,6 +2,8 @@
 
 require_once __DIR__ . '/functions.php';
 class Shortcodes{
+
+    
     public function __construct(){
         add_shortcode('verify-donor',array($this,'verify_donor_short'));
     }

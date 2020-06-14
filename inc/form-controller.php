@@ -42,16 +42,28 @@ class Ajax_Calls {
 		// Sanitizing and Assigning variables 
 		$iban = sanitize_text_field($_POST['iban']);
 		$revolut = sanitize_text_field($_POST['revolut']);
-		$bitcoin = sanitize_text_field($_POST['bitcoint']);
-		$description = sanitize_text_field($_POST['description']);
+		$bitcoin = sanitize_text_field($_POST['bitcoin']);
+		$description = sanitize_text_field($_POST['desc']);
 		$address = sanitize_text_field($_POST['address']);
 		$picture_url = $_POST['pictureUrl'];
-		// Handling th Profile Picture 
+		$proof = $_POST['proofUrl'];
+		
+		
+		
 		/**
 		 * Create an Empty User meta where we can store the picture.
 		 */
-		update_user_meta($user_id,"profile_picture",$picture_url);
+		if(!empty($picture_url)){
+			update_user_meta($user_id,"profile_picture",$picture_url);
+		}
 
+		/**
+		 * Create an Empty User meta where we can store the picture.
+		 */
+		if(!empty($proof)){
+			update_user_meta($user_id,"proof_picture",$proof);
+		}
+		
 
 		// Finally Calling off the function
 		$update_donor = $new->donor_info_form($user_id,$iban,$revolut,$bitcoin,$description,$address);
@@ -59,6 +71,7 @@ class Ajax_Calls {
 	}
 
 
+	// Change Avatar Programmitcally. 
 	public function donor_avatar_get(){
 		$user_id = get_current_user_id();
 		$link = get_user_meta($user_id,"profile_picture");

@@ -72,6 +72,7 @@ class Plugin {
 		// Stylesheets
 		add_action( 'elementor/frontend/after_enqueue_styles', array( $this, 'widget_styles' ) );
 		add_action( 'elementor/widgets/widgets_registered', array( $this, 'register_widgets' ) );
+		
 		// API Calls
 		require_once __DIR__ . '/inc/form-controller.php';
 

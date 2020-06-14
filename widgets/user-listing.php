@@ -84,9 +84,24 @@ class User_Listing extends Widget_Base {
 	}
 
 	protected function render() {
-        $settings = $this->get_settings_for_display();
-        // Getting Users by Role. 
-        $users = get_users(['role__in' => ['open_star','close_star']]);
+		$settings = $this->get_settings_for_display();
+		
+		$role = "";
+		if(isset($_POST['submit'])){
+			$role = $_POST['star'];
+		}
+		// Getting Users by Role.
+        $users = get_users(array(
+			'role' => $role,
+		));?>
+		<form method="post">
+			<select name="star" id="star">
+				<option value="open_star">Open Star</option>
+				<option value="close_star">Close Star</option>
+			</select>
+			<input type="submit" value="submit" name="submit">
+		</form>
+		<?php
         foreach($users as $user){
         ?>
         <div class="media">

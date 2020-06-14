@@ -80,10 +80,11 @@ jQuery(document).ready(function ($) {
         var iban = $("#iban").val();
         var revolut = $("#revolut").val();
         var bitcoin = $("#bitcoin").val();
-        var desc = $("#desc").val();
+        var desc = $("textarea#desc").val();
         var address = $("#address").val();
         var addBtn = $("#avatar-image");
         var url = $("#profile-picture").val();
+        var proof = $("#proof-picture").val();
         $.ajax({
             url: ajax_url,
             type: 'post',
@@ -94,6 +95,7 @@ jQuery(document).ready(function ($) {
                 desc: desc,
                 address: address,
                 pictureUrl: url,
+                proofUrl: proof,
                 action: 'donor_information',
                 security: control_form.security,
             },
@@ -103,7 +105,7 @@ jQuery(document).ready(function ($) {
                     $(".success-message-f").text(response.message);
                     $(".success-message-f").slideDown("slow");
                     $(".first-step-signup").slideDown("slow");
-                    window.location.href = site_url;
+
                 }
                 else if (response.code == 2) {
                     $(".failure-message-f").text(response.message);
