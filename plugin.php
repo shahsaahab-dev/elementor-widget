@@ -88,7 +88,6 @@ class Plugin {
 		// Required User Roles 
 		require_once __DIR__ . '/inc/roles.php';
 
-
 		// Modify Permission 
 		require_once __DIR__ . '/inc/permissions.php';
 

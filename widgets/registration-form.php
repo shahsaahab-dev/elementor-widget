@@ -7,16 +7,16 @@ use Elementor\Controls_Manager;
 class Registration extends Widget_Base {
 
 	public function gum($field){
-		$store = get_user_meta(get_current_user_id(),$field);
-		if(!$store[0] == ""){
-			echo "value=" . $store[0];
+		$store = get_user_meta(get_current_user_id(),$field,true);
+		if(!$store == ""){
+			echo "value=" . $store;
 		}
 
 	}
 	public function gumt($field){
-		$store = get_user_meta(get_current_user_id(),$field);
-		if(!$store[0] == ""){
-			echo $store[0];
+		$store = get_user_meta(get_current_user_id(),$field,true);
+		if(!$store == ""){
+			echo $store;
 		}
 
 	}
@@ -133,10 +133,10 @@ class Registration extends Widget_Base {
 		<div class="row">
 			<div class="col-xl-12">
 				<h3 class="text-center text-white"><?php echo ( $main_title ) ? $main_title : $settings['title']; ?></h3>
-				<form id="msform" method="post" enctype="multipart/form-data" action="javascript:void()" style="" >
+				<form id="msform" method="post" enctype="multipart/form-data" action="javascript:void()">
 					<!-- progressbar -->
 					<ul id="progressbar">
-						<?php $verification = get_user_meta( get_current_user_id(), 'email_verified' ); ?>
+						<?php $verification = get_user_meta( get_current_user_id(), 'email_verified',true ); ?>
 						<li class="
 						<?php
 						if ( ! is_user_logged_in() ) {
@@ -148,9 +148,9 @@ class Registration extends Widget_Base {
 
 						<li class=" 
 						<?php
-						if ( is_user_logged_in() && $verification[0] == 'no' ) {
+						if ( is_user_logged_in() && $verification == 'no' ) {
 							echo 'active';
-						} elseif ( ! is_user_logged_in() && $verification[0] == 'no' ) {
+						} elseif ( ! is_user_logged_in() && $verification == 'no' ) {
 							echo '';
 						} else {
 							echo 'completed';}
@@ -159,7 +159,7 @@ class Registration extends Widget_Base {
 						<li class="
 						<?php
 						
-						if ( is_user_logged_in() && $verification[0] == 'yes') {
+						if ( is_user_logged_in() && $verification == 'yes') {
 							echo 'active';
 							
 						} else {
@@ -171,7 +171,7 @@ class Registration extends Widget_Base {
 					if ( ! is_user_logged_in() ) {
 						?>
 					<!-- fieldsets -->
-					<fieldset class="text-center" style="">
+					<fieldset class="text-center" >
 						<h2 class="fs-title">Account Information</h2>
 						<h3>Tell us something about yourself</h3>
 						<div class="first-step-signup">
@@ -190,7 +190,7 @@ class Registration extends Widget_Base {
 					?>
 
 					<?php
-					if ( is_user_logged_in() && $verification[0] == 'no' ) {
+					if ( is_user_logged_in() && $verification == 'no' ) {
 						?>
 					<fieldset class="text-center">
 						<h2 class="fs-title text-center">Email Verification</h2>

@@ -74,12 +74,12 @@ class Ajax_Calls {
 	// Change Avatar Programmitcally. 
 	public function donor_avatar_get(){
 		$user_id = get_current_user_id();
-		$link = get_user_meta($user_id,"profile_picture");
-		if($link[0] != ""){
-			$avatar = '<img src='.$link[0].' width="100px" height="100px">';
-		return $avatar;
+		$links = get_user_meta($user_id,"profile_picture");
+		foreach($links as $link){
+			$avatar = '<img src='.$link.' width="100px" height="100px">';
+			return $avatar;
 		}
-	}
+		}
 
 
 

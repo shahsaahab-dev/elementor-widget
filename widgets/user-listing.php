@@ -7,8 +7,8 @@ use Elementor\Controls_Manager;
 class User_Listing extends Widget_Base {
 
     private function gum_id($id,$field){
-		$store = get_user_meta($id,$field);
-		echo $store[0];
+		$store = get_user_meta($id,$field,true);
+		echo $store;
     }
     
 	public function get_name() {
@@ -105,16 +105,16 @@ class User_Listing extends Widget_Base {
         foreach($users as $user){
         ?>
         <div class="media">
-        <img src="<?php $this->gum_id($user->id,"profile_picture") ?>" class="mr-3" alt="...">
+        <img src="<?php $this->gum_id($user->ID,"profile_picture") ?>" class="mr-3" alt="...">
         <div class="media-body">
             <h5 class="mt-0"><?php echo $user->display_name; ?></h5>
             <h5><a href="mailto:<?php echo $user->user_email; ?>"><?php echo $user->user_email; ?></a></h5>
             <ul class="meta-desc">
-                <li><?php $this->gum_id($user->id,"IBAN")?></li>
-                <li><?php $this->gum_id($user->id,"Revolut")?></li>
-                <li><?php $this->gum_id($user->id,"Bitcoin")?></li>
-                <li><?php $this->gum_id($user->id,"Desc")?></li>
-                <li><?php $this->gum_id($user->id,"Address")?></li>
+                <li><?php $this->gum_id($user->ID,"IBAN")?></li>
+                <li><?php $this->gum_id($user->ID,"Revolut")?></li>
+                <li><?php $this->gum_id($user->ID,"Bitcoin")?></li>
+                <li><?php $this->gum_id($user->ID,"Desc")?></li>
+                <li><?php $this->gum_id($user->ID,"Address")?></li>
             </ul>
         </div>
         </div>
