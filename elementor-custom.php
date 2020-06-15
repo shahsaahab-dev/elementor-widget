@@ -62,7 +62,7 @@ final class Elementor_Custom_Plugin {
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: Elementor */
 			esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'custom-elementor' ),
-			'<strong>' . esc_html__( 'Elementor Custom Plugin', 'custom-elementor' ) . '</strong>',
+			'<strong>' . esc_html__( 'Donor Custom Plugin', 'custom-elementor' ) . '</strong>',
 			'<strong>' . esc_html__( 'Elementor', 'custom-elementor' ) . '</strong>'
 		);
 

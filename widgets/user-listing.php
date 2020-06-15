@@ -94,31 +94,114 @@ class User_Listing extends Widget_Base {
         $users = get_users(array(
 			'role' => $role,
 		));?>
-		<form method="post">
-			<select name="star" id="star">
-				<option value="open_star">Open Star</option>
-				<option value="close_star">Close Star</option>
-			</select>
-			<input type="submit" value="submit" name="submit">
-		</form>
-		<?php
+
+<style>
+	/* To Remove Styles */
+	.media {
+		background: #fff !important;
+		padding: 15px;
+	}
+
+	ul.meta-desc {
+		list-style: none;
+		padding: 0px;
+		margin: 0px;
+	}
+
+	ul.meta-desc li {
+		display: inline-block;
+	}
+
+	.media h5 {
+		margin: 0px;
+	}
+
+	.user-filtering-area ul {
+		padding: 0px;
+		margin: 0px;
+		list-style: none;
+	}
+
+	.user-filtering-area ul li {
+		display: inline-block;
+	}
+
+	h3.text-center.text-white {
+		color: #222 !important;
+	}
+
+	#progressbar li {
+		color: #222 !important;
+		font-weight: 600;
+	}
+
+	.upload-picture-wrapper p {
+		text-align: left;
+		line-height: 65px;
+	}
+
+	button#picture-avatar-upload,
+	button#picture-proof-upload {
+		padding: 10px 25px;
+		font-size: 12px;
+		margin-right: 10px;
+	}
+
+	.upload-picture-wrapper span {
+		float: right;
+		max-width: 100px;
+		border: 1px solid #222;
+		padding: 10px;
+		border-radius: 5px;
+	}
+
+	.media img {
+		width: 100px;
+	}
+
+	.media {
+		border: 1px solid #d9d9d9;
+		box-shadow: 5px 5px 10px #2222;
+		margin-bottom: 10px;
+	}
+
+	button.btn.btn-success.view-profile {
+    float: right;
+}
+
+ul.meta-desc {
+    width: 75%;
+    display: inline-block;
+}
+</style>
+<form method="post">
+	<select name="star" id="star">
+		<option value="open_star">Open Star</option>
+		<option value="close_star">Close Star</option>
+	</select>
+	<input type="submit" value="submit" name="submit">
+</form>
+<?php
         foreach($users as $user){
         ?>
-        <div class="media">
-        <img src="<?php $this->gum_id($user->ID,"profile_picture") ?>" class="mr-3" alt="...">
-        <div class="media-body">
-            <h5 class="mt-0"><?php echo $user->display_name; ?></h5>
-            <h5><a href="mailto:<?php echo $user->user_email; ?>"><?php echo $user->user_email; ?></a></h5>
-            <ul class="meta-desc">
-                <li><?php $this->gum_id($user->ID,"IBAN")?></li>
-                <li><?php $this->gum_id($user->ID,"Revolut")?></li>
-                <li><?php $this->gum_id($user->ID,"Bitcoin")?></li>
-                <li><?php $this->gum_id($user->ID,"Desc")?></li>
-                <li><?php $this->gum_id($user->ID,"Address")?></li>
-            </ul>
-        </div>
-        </div>
-        <?php
+<div class="media">
+	<img src="<?php $query = $this->gum_id($user->ID,"profile_picture"); ?>" class="mr-3" alt="...">
+	<div class="media-body">
+		<h5 class="mt-0"><a
+				href="<?php echo site_url('/donor-profile?id=') . $user->ID; ?>"><?php echo $user->display_name; ?></a>
+		</h5>
+		<h5><a href="mailto:<?php echo $user->user_email; ?>"><?php echo $user->user_email; ?></a></h5>
+		<p><?php $this->gum_id($user->ID,"description") ?></p>
+		<ul class="meta-desc">
+			<li><strong>IBAN:</strong><?php $this->gum_id($user->ID,"IBAN")?></li>
+			<li> <strong>Revolut:</strong> <?php $this->gum_id($user->ID,"Revolut")?></li>
+			<li><strong>Bitcoin:</strong><?php $this->gum_id($user->ID,"Bitcoin")?></li>
+			<li><strong>Address:</strong><?php $this->gum_id($user->ID,"Address")?></li>
+		</ul>
+		<a href="<?php echo site_url('/donor-profile?id=') . $user->ID; ?>" class="btn btn-success view-profile">View Profile</a>
+	</div>
+</div>
+<?php
         }
         wp_reset_query();
 	}

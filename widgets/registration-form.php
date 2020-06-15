@@ -46,107 +46,243 @@ class Registration extends Widget_Base {
 
 	// Widget Controls
 	protected function _register_controls() {
+
+		// Form General Styles 
 		$this->start_controls_section(
-			'content_section',
+			'form-styling',
 			[
-				'label' => __( 'General', 'plugin-name' ),
-				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
+				'label' => __("Form Styles","custom-elementor"),
+				'tab' => Controls_Manager::TAB_CONTENT,
 			]
 		);
 
+		// Form Background Color
 		$this->add_control(
-			'title',
+			'form-background',
 			[
-				'label' => __( 'Main Title', 'plugin-name' ),
-				'type' => \Elementor\Controls_Manager::TEXT,
-				'input_type' => 'text',
-				'placeholder' => __( 'Become a Donor', 'custom-elementor' ),
+				'label' => __("Form Background Color"), 
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'default' => '#fefefe',
 			]
-		);
-
+			);
 		$this->add_control(
-			'step-1',
+			'form-title-color',
 			[
-				'label' => __( 'Step 1', 'plugin-name' ),
-				'type' => \Elementor\Controls_Manager::TEXT,
-				'input_type' => 'text',
-				'placeholder' => __( 'Account Information', 'custom-elementor' ),
-				'default' => _('Account Information','custom-elementor'),
+				'label' => __("Form Title Color"), 
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'default' => '#222222',
 			]
 		);
 		$this->add_control(
-			'step-2',
+			'form-subtitle-color',
 			[
-				'label' => __( 'Step 2', 'plugin-name' ),
-				'type' => \Elementor\Controls_Manager::TEXT,
-				'input_type' => 'text',
-				'placeholder' => __( 'Email Verification', 'custom-elementor' ),
-				'default' => _('Email Verification Information','custom-elementor'),
+				'label' => __("Form SubHeading Color"), 
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'default' => '#222222',
 			]
 		);
 		$this->add_control(
-			'step-3',
+			'steps-text-color',
 			[
-				'label' => __( 'Step 3', 'plugin-name' ),
-				'type' => \Elementor\Controls_Manager::TEXT,
-				'input_type' => 'text',
-				'placeholder' => __( 'Final Step', 'custom-elementor' ),
-				'default' => _('Final Step of Registration','custom-elementor'),
+				'label' => __("Steps Text Color"), 
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'default' => '#222222',
+			]
+		);
+		$this->add_control(
+			'steps-color-complete',
+			[
+				'label' => __("Step Completed Color"), 
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'default' => '#222222',
+			]
+		);
+		$this->add_control(
+			'steps-color-incomplete',
+			[
+				'label' => __("Step In Process Color Color"), 
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'default' => '#222222',
+			]
+		);
+		$this->add_control(
+			'Button-background-Color',
+			[
+				'label' => __("Buttons Background Color"), 
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'default' => '#222222',
+			]
+		);
+		$this->add_control(
+			'Button-text-Color',
+			[
+				'label' => __("Buttons Text Color"), 
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'default' => '#222222',
 			]
 		);
 		$this->end_controls_section();
+		
+		// Form Texts 
 		$this->start_controls_section(
-			'styling_section',
+			'form-texts',
 			[
-				'label' => __('Form Styling','custom-elementor'),
-				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
+				'label' => __("Form Text","custom-elementor"),
+				'tab' => Controls_Manager::TAB_CONTENT,
+			]
+		);
+
+		$this->add_control(
+			'main-title',
+			[
+				'label' => __("Main Title Text","custom-elementor"),
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'placeholer' => __("Enter Main Title Here"),
+				'default' => ("Become A Donor"),
+
 			]
 			);
+		$this->add_control(
+			'form-heading',
+			[
+				'label' => __("Form Heading Text","custom-elementor"),
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'placeholer' => __("Enter Form Heading Here"),
+				'default' => ("SOME MORE INFORMATION ABOUT YOU"),
 
-			$this->add_control(
-				'title_color',
-				[
-					'label' => __( 'Form BG', 'custom-elementor' ),
-					'type' => \Elementor\Controls_Manager::COLOR,
-					'scheme' => [
-						'type' => \Elementor\Scheme_Color::get_type(),
-						'value' => \Elementor\Scheme_Color::COLOR_1,
-					],
-					'selectors' => [
-						'{{WRAPPER}} .title' => 'color: {{VALUE}}',
-					],
-				]
+			]
 			);
-		
+		$this->add_control(
+			'form-sub-heading',
+			[
+				'label' => __("Form Sub Heading Text","custom-elementor"),
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'placeholer' => __("Enter Form Sub Heading Here"),
+				'default' => ("Fill Out the details below"),
+
+			]
+			);
+		$this->end_controls_section();
+
+
+		$this->start_controls_section(
+			'Text Alignment',
+			[
+				'label' => __("Text Alignment","custom-elementor"),
+				'tab' => Controls_Manager::TAB_CONTENT,
+
+			]
+		);
+		$this->add_control(
+			'top-heading-alignment',
+			[
+				'label' => __( 'Top Heading Alignment', 'custom-elementor' ),
+				'type' => \Elementor\Controls_Manager::CHOOSE,
+				'options' => [
+					'left' => [
+						'title' => __( 'Left', 'custom-elementor' ),
+						'icon' => 'fa fa-align-left',
+					],
+					'center' => [
+						'title' => __( 'Center', 'custom-elementor' ),
+						'icon' => 'fa fa-align-center',
+					],
+					'right' => [
+						'title' => __( 'Right', 'custom-elementor' ),
+						'icon' => 'fa fa-align-right',
+					],
+				],
+				'default' => 'center',
+			]
+		);
+		$this->add_control(
+			'form-heading-alignment',
+			[
+				'label' => __( 'Form Heading Alignment', 'custom-elementor' ),
+				'type' => \Elementor\Controls_Manager::CHOOSE,
+				'options' => [
+					'left' => [
+						'title' => __( 'Left', 'custom-elementor' ),
+						'icon' => 'fa fa-align-left',
+					],
+					'center' => [
+						'title' => __( 'Center', 'custom-elementor' ),
+						'icon' => 'fa fa-align-center',
+					],
+					'right' => [
+						'title' => __( 'Right', 'custom-elementor' ),
+						'icon' => 'fa fa-align-right',
+					],
+				],
+				'default' => 'center',
+			]
+		);
+		$this->add_control(
+			'form-sub-heading-alignment',
+			[
+				'label' => __( 'Form Sub-Heading Alignment', 'custom-elementor' ),
+				'type' => \Elementor\Controls_Manager::CHOOSE,
+				'options' => [
+					'left' => [
+						'title' => __( 'Left', 'custom-elementor' ),
+						'icon' => 'fa fa-align-left',
+					],
+					'center' => [
+						'title' => __( 'Center', 'custom-elementor' ),
+						'icon' => 'fa fa-align-center',
+					],
+					'right' => [
+						'title' => __( 'Right', 'custom-elementor' ),
+						'icon' => 'fa fa-align-right',
+					],
+				],
+				'default' => 'center',
+			]
+		);
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'style_section',
+			[
+				'label' => __( 'Style', 'custom-elementor' ),
+				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Border::get_type(),
+			[
+				'name' => 'border',
+				'selector' => '{{WRAPPER}} .wrapper',
+			]
+		);
+
+		$this->end_controls_section();
+
 	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		$main_title = wp_oembed_get( $settings['title'] );
-		$step_1 = wp_oembed_get( $settings['step-1'] );
-		$step_2 = wp_oembed_get( $settings['step-2'] );
-		$step_3 = wp_oembed_get( $settings['step-3'] );
-
-
 		?>
-		<div class="row">
-			<div class="col-xl-12">
-				<h3 class="text-center text-white"><?php echo ( $main_title ) ? $main_title : $settings['title']; ?></h3>
-				<form id="msform" method="post" enctype="multipart/form-data" action="javascript:void()">
-					<!-- progressbar -->
-					<ul id="progressbar">
-						<?php $verification = get_user_meta( get_current_user_id(), 'email_verified',true ); ?>
-						<li class="
+	
+<div class="row">
+	<div class="col-xl-12">
+		<h3 class="text-center text-white">Become A Donor</h3>
+		<form id="msform" method="post" enctype="multipart/form-data" action="javascript:void()">
+			<!-- progressbar -->
+			<ul id="progressbar">
+				<?php $verification = get_user_meta( get_current_user_id(), 'email_verified',true ); ?>
+				<li class="
 						<?php
 						if ( ! is_user_logged_in() ) {
 							echo 'active';
 						} else {
 							echo 'completed';}
 						?>
-						"><?php echo ( $step_1 ) ? $step_1 : $settings['step-1']; ?></li>
+						">Account Information</li>
 
-						<li class=" 
+				<li class=" 
 						<?php
 						if ( is_user_logged_in() && $verification == 'no' ) {
 							echo 'active';
@@ -155,8 +291,8 @@ class Registration extends Widget_Base {
 						} else {
 							echo 'completed';}
 						?>
-						"><?php echo ( $step_2 ) ? $step_2 : $settings['step-2']; ?></li>
-						<li class="
+						">Email Verification</li>
+				<li class="
 						<?php
 						
 						if ( is_user_logged_in() && $verification == 'yes') {
@@ -165,67 +301,75 @@ class Registration extends Widget_Base {
 						} else {
 							echo '';}
 						?>
-						"><?php echo ( $step_3 ) ? $step_3 : $settings['step-3']; ?></li>
-					</ul>
-					<?php
+						">Final Step of Verification</li>
+			</ul>
+			<?php
 					if ( ! is_user_logged_in() ) {
 						?>
-					<!-- fieldsets -->
-					<fieldset class="text-center" >
-						<h2 class="fs-title">Account Information</h2>
-						<h3>Tell us something about yourself</h3>
-						<div class="first-step-signup">
-							<div class="success-message"></div>
-							<div class="failure-message"></div>
-							<input type="text" name="username" id="uname" placeholder="Your Username Here">
-							<input type="text" name="name" id="name" placeholder="Your Name Here">
-							<input type="email" name="email" id="email" placeholder="Your Email Here">
-							<input type="text" name="phone" id="phone" placeholder="Your Phone Here">
-							<input type="password" name="password" id="password" placeholder="Your Password Here">
-						</div>
-						<input type="button" name="next" class="submit-first" value="Register" />
-					</fieldset>
-						<?php
+			<!-- fieldsets -->
+			<fieldset class="text-center">
+				<h2 class="fs-title">Account Information</h2>
+				<h3>Tell us something about yourself</h3>
+				<div class="first-step-signup">
+					<div class="success-message"></div>
+					<div class="failure-message"></div>
+					<input type="text" name="username" id="uname" placeholder="Your Username Here">
+					<input type="text" name="name" id="name" placeholder="Your Name Here">
+					<input type="email" name="email" id="email" placeholder="Your Email Here">
+					<input type="text" name="phone" id="phone" placeholder="Your Phone Here">
+					<input type="password" name="password" id="password" placeholder="Your Password Here">
+				</div>
+				<input type="button" name="next" class="submit-first" value="Register" />
+			</fieldset>
+			<?php
 					}
 					?>
 
-					<?php
+			<?php
 					if ( is_user_logged_in() && $verification == 'no' ) {
 						?>
-					<fieldset class="text-center">
-						<h2 class="fs-title text-center">Email Verification</h2>
-						<h3 class="text-center">Verify Your Email Address</h3>
-						<p class="text-center">Looks like your email isnt verified Yet. Verify and Refresh this Page</p>
-					</fieldset>
-						<?php } ?>
+			<fieldset class="text-center">
+				<h2 class="fs-title text-center">Email Verification</h2>
+				<h3 class="text-center">Verify Your Email Address</h3>
+				<p class="text-center">Looks like your email isnt verified Yet. Verify and Refresh this Page</p>
+			</fieldset>
+			<?php } ?>
 
-					<fieldset class="text-center">
-						<h2 class="fs-title">Some More information About you</h2>
-						<h3 class="fs-subtitle">Your presence on the social network</h3>
-						<div class="last-step-signup">
-						<div class="success-message-f"></div>
-							<div class="failure-message-f"></div>
-							<input type="text" name="iban" id="iban" placeholder="Your IBAN Here" <?php $this->gum("IBAN") ; ?>>
-							<input type="text" name="revolut" id="revolut" placeholder="Your Revolut Here" <?php $this->gum("Revolut") ; ?>>
-							<input type="text" name="bitcoin" id="bitcoin" placeholder="Your Bitcoin Wallet # Here" <?php $this->gum("Bitcoin") ; ?>>
-							<textarea name="description" id="desc" cols="10" rows="10" placeholder="Your Project Description" ><?php $this->gumt("description"); ?></textarea>
-							<div class="upload-picture-wrapper">
-								<p><button id="picture-avatar-upload">Upload</button>Upload your Profile Picture  <span><img class="profile-picture-tag" src="<?php $this->gumt("profile_picture") ?>" alt=""></span></p>
-								<input type="hidden" name="profile_picture" id="profile-picture" value="">
-							</div>
-							
-							<input type="text" name="address" id="address" placeholder="Your Address Here" <?php $this->gum("Address") ?>>
-							<div class="upload-picture-wrapper">
-								<p><button id="picture-proof-upload">Upload</button>Upload your Proof Picture <span><img class="proof-picture-tag" src="<?php $this->gumt("proof_picture") ?>" alt=""></span></p>
-								<input type="hidden" name="profile_picture" id="proof-picture" value="">
-							</div>
-						</div>
-						<input type="button" name="submit_register" class="last-signup" value="Submit" />
-					</fieldset>
-				</form>
-			</div>
-		</div>
+			<fieldset class="text-center">
+				<h2 class="fs-title">Some More information About you</h2>
+				<h3 class="fs-subtitle">Your presence on the social network</h3>
+				<div class="last-step-signup">
+					<div class="success-message-f"></div>
+					<div class="failure-message-f"></div>
+					<input type="text" name="iban" id="iban" placeholder="Your IBAN Here" <?php $this->gum("IBAN") ; ?>>
+					<input type="text" name="revolut" id="revolut" placeholder="Your Revolut Here"
+						<?php $this->gum("Revolut") ; ?>>
+					<input type="text" name="bitcoin" id="bitcoin" placeholder="Your Bitcoin Wallet # Here"
+						<?php $this->gum("Bitcoin") ; ?>>
+					<textarea name="description" id="desc" cols="10" rows="10"
+						placeholder="Your Project Description"><?php $this->gumt("description"); ?></textarea>
+					<div class="upload-picture-wrapper">
+						<p><button id="picture-avatar-upload">Upload</button>Upload your Profile Picture <span><img
+									class="profile-picture-tag" src="<?php $this->gumt("profile_picture") ?>"
+									alt=""></span></p>
+						<input type="hidden" name="profile_picture" id="profile-picture" value="">
+					</div>
+
+					<input type="text" name="address" id="address" placeholder="Your Address Here"
+						<?php $this->gum("Address") ?>>
+					<div class="upload-picture-wrapper">
+						<p><button id="picture-proof-upload">Upload</button>Upload your Proof Picture <span><img
+									class="proof-picture-tag" src="<?php $this->gumt("proof_picture") ?>" alt=""></span>
+						</p>
+						<input type="hidden" name="profile_picture" id="proof-picture" value="">
+					</div>
+				</div>
+				<input type="button" name="submit_register" class="last-signup" value="Submit" />
+			</fieldset>
+		</form>
+	</div>
+</div>
 <!-- /.MultiStep Form -->
-		<?php
+<?php
 	}
 }

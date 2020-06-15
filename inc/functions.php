@@ -56,9 +56,19 @@ class Form_Function {
 	public function send_email_verify($username,$email) {
 		$create_nonce = wp_create_nonce( $username . $email );
 		$subject      = __( 'Verify Your Email Address', 'custom-elementor' );
-		$message      = __( 'Click Here to Verify your Email Address', 'custom-elementor' );
-		$message     .= '<a href="' . site_url( '/verify-donor?verify_user_account' ) .'">Click Here</a>';
-		wp_mail( $email, $subject, $message );
+		$headers = array('Content-Type: text/html; charset=UTF-8');
+		$message = '<div class="confirmation-email-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 mx-auto">
+					<h3>Confirm your Email</h3>
+					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi corporis, incidunt facilis culpa quae animi nesciunt. Amet iure quisquam velit praesentium eius dolore deserunt officia inventore, enim et quis! Deserunt.</p>
+					<a class="btn btn-primary" href="' . site_url( '/verify-donor?verify_user_account' ) .'">Click Here</a>
+				</div>
+			</div>
+		</div>
+	</div>';
+		wp_mail( $email, $subject, $message,$headers);
 	}
 
 
