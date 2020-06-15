@@ -97,4 +97,9 @@ class Form_Function {
 
 		wp_die();
 	}
+
+
+	public function login_user_custom($id,$password){
+		
+	}
 }

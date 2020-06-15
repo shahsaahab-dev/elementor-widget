@@ -6,9 +6,10 @@ class Shortcodes{
 
     
     public function __construct(){
-            add_action('init',array($this,'handle_logout'));
-            add_shortcode('verify-donor',array($this,'verify_donor_short'));
+         add_action('init',array($this,'handle_logout'));
+        add_shortcode('verify-donor',array($this,'verify_donor_short'));
         add_shortcode('donor-profile',array($this,'donor_profile'));
+        add_shortcode('login-page',array($this,'login_func'));
     }
 
     
@@ -30,15 +31,18 @@ class Shortcodes{
 
     public function donor_profile(){
         ob_start();
-        if(!isset($_GET)){
-            echo 'hello world';
-        }
         $new = new Profile_Layout();
-        $new->profile_layout_func();
+        $new->dynamic_layout();
 
         return ob_get_clean();
     }
 
+
+    public function login_func(){
+        ob_start();
+        
+        return ob_get_clean();
+    }
 
 }
 
