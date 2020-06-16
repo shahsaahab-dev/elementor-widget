@@ -26,7 +26,7 @@ class Plugin {
 		wp_enqueue_script( 'jquery-easing', plugins_url( '/assets/jquery-easing.min.js', __FILE__ ), array( 'jquery' ), '1.0', true );
 		wp_enqueue_script( 'popper', 'https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js', array( 'jquery' ), '1.0', true );
 		wp_enqueue_script( 'bootstrap', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js', array( 'jquery' ), '1.0', true );
-
+		wp_enqueue_style( 'custom-styles', plugins_url( '/assets/custom-styles.css', __FILE__ ), array(), '1.0', 'all' );
 		// Ajax Scripts
 		wp_enqueue_script( 'file-uploader', plugins_url( '/assets/file-uploader.js', __FILE__ ), array( 'jquery' ), '1.0', true );
 		wp_enqueue_script( 'form-controller', plugins_url( '/assets/form-controller.js', __FILE__ ), array( 'jquery' ), '1.0', true );

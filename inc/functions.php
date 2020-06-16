@@ -98,8 +98,42 @@ class Form_Function {
 		wp_die();
 	}
 
+	
 
 	public function login_user_custom($id,$password){
 		
+	}
+
+
+	// profile Page Functions 
+	function save_from_profile($user_id,$name,$password,$email,$address,$description,$iban,$revolut,$bitcoin){
+		// Account Information 
+		$user_data = array(
+			'ID' => $user_id,
+			'user_email' => $email,
+			'display_name' => $name,
+		);
+		$user_update = wp_update_user($user_data);
+
+		// Other Information 
+		update_user_meta($user_id,"IBAN",$iban);
+		update_user_meta($user_id,"Revolut",$revolut);
+		update_user_meta($user_id,"Bitcoin",$bitcoin);
+		update_user_meta($user_id,"description",$description);
+		update_user_meta($user_id,"Address",$address);
+
+		// Mail the donor to inform about the change. 
+		$subject = __('Your Information on '.site_url().' Has been Updated',"custom-elementor");
+		$message = __("Your Information has been updated.","custom-elementor");
+		wp_mail($email,$subject,$message);
+		// Change Password at the End. 
+		$hashed_passowrd = wp_hash_password( $password );
+		wp_set_password($user_id,$hashed_passowrd);
+
+		wp_send_json(array(
+			"code" => 1,
+			"message" => __("Information is Updated. Changes Saved","custom-elementor"),
+		));
+		wp_die();
 	}
 }

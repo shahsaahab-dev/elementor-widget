@@ -44,4 +44,26 @@ jQuery(document).ready(function ($) {
 
         mediaUploader.open();
     });
+
+    $("#change-photo").on("click", function (e) {
+        e.preventDefault();
+        if (mediaUploader) {
+            mediaUploader.open();
+            return;
+        }
+        mediaUploader = wp.media.frames.file_frame = wp.media({
+            title: 'Choose a Proof Picture',
+            button: {
+                text: 'Choose Proof Picture'
+            },
+            multiple: false,
+        });
+        mediaUploader.on("select", function () {
+            attachment = mediaUploader.state().get('selection').first().toJSON();
+            $("#proof-picture").val(attachment.url);
+            $(".proof-picture-tag").attr("src", attachment.url);
+        });
+
+        mediaUploader.open();
+    });
 })

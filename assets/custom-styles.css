@@ -1,0 +1,10 @@
+button#change-photo {
+    border-radius: 0px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+ul.nav,
+ul.nav.nav-tabs {
+    margin: 0px;
+}

@@ -119,5 +119,39 @@ jQuery(document).ready(function ($) {
 
             },
         });
+    });
+
+
+    // Save Changes from Profile Page 
+    $("#save-changes").on("click",function(){
+        var name = $("#display-name").val();
+        var email = $("#email").val();
+        var password = $("#password").val();
+        var address = $("#address").val();
+        var description = $("#description").val();
+        var iban = $("#iban").val();
+        var revolut = $("#revolut").val();
+        var bitcoin = $("#bitcoin").val();
+        console.log("button clicked");
+        $.ajax({
+            url: ajax_url,
+            type:'post',
+            data:{
+                action:'save_donor_information',
+                name:name,
+                email:email,
+                password:password,
+                address:address,
+                description:description,
+                iban:iban,
+                revolut:revolut,
+                bitcoin:bitcoin,
+                security: control_form.security,
+            },
+            success:function(response){
+                       
+            }
+
+        })
     })
 })

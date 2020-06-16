@@ -18,6 +18,11 @@ class Ajax_Calls {
 
 		// Grab the avatar that got uploaded 
 		add_filter( 'get_avatar', array($this,'donor_avatar_get'), 10, 5 );
+
+		// Save donor information from profile page. 
+		add_action( 'wp_ajax_save_donor_information', array( $this, 'save_donor_information' ) );
+		add_action( 'wp_ajax_nopriv_save_donor_information', array( $this, 'save_donor_information' ) );
+
 	}
 
 	public function create_account() {
@@ -79,7 +84,29 @@ class Ajax_Calls {
 			$avatar = '<img src='.$link.' width="100px" height="100px">';
 			return $avatar;
 		}
-		}
+	}
+
+
+	public function save_donor_information(){
+		// save_from_profile($id,$name,$password,$email,$address,$description,$iban,$revolut,$bitcoin);
+		check_ajax_referer( 'form-controller', 'security' );
+			
+			$id = get_current_user_id();
+			$name = $_POST['name'];
+			$email = $_POST['email'];
+			$password = $_POST['password'];
+			$address = $_POST['address'];
+			$description = $_POST['description'];
+			$iban = $_POST['iban'];
+			$revolut = $_POST['revolut'];
+			$bitcoin = $_POST['bitcoin'];
+
+			$fields = [$id,$name,$password,$email,$address,$description,$iban,$revolut,$bitcoin];
+
+			$new = new Form_Function();
+			$run = $new->save_from_profile($id,$name,$password,$email,$address,$description,$iban,$revolut,$bitcoin);
+
+	}
 
 
 
