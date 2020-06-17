@@ -11,7 +11,7 @@ class Roles{
     }
     // Add Custom User Roles
     public function add_user_roles(){
-        add_role('open_star','Open Star',array('edit_posts' => false,'delete_posts' => false,'read' => true));
+        add_role('open_star','Open Star',array('edit_posts' => false,'delete_posts' => false,'read' => true,'show_bar'=>true));
         add_role('close_star','Close Star',array('edit_posts' => false,'delete_posts' => false,'read' => true));
     }
 

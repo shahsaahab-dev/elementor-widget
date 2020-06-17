@@ -8,3 +8,56 @@ ul.nav,
 ul.nav.nav-tabs {
     margin: 0px;
 }
+
+.error-message {
+    color: #ff0303;
+    padding: 10px;
+    position: relative;
+    left: 0;
+    font-size: 15px;
+    top: 100%;
+    text-align: center;
+}
+
+.success-message {
+    color: #00c318;
+    padding: 10px;
+    position: relative;
+    left: 0;
+    font-size: 15px;
+    top: 100%;
+    text-align: center;
+}
+
+
+select#star {
+    min-height: 45px;
+    max-height: 45px;
+}
+
+input[type="submit"] {
+    min-height: 45px;
+    max-height: 45px;
+    border-radius: 0;
+    margin-left: 10px;
+}
+
+.media {
+    margin-top: 20px;
+}
+
+a.btn.btn-success.view-profile {
+    position: relative;
+    bottom: 45px;
+}
+
+
+.message-success {
+    background: green;
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    display:none;
+}
+
+/* Form  REgistraiton */

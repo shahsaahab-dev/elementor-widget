@@ -4,13 +4,33 @@ class Profile_Layout {
 
 	private $id;
     private $change_picture;
-    private $disabled;
-    private $password_area;
+    public $disabled;
     private $user_data; 
-
     private $save_btn;
-    public function dlgn(){
 
+
+    /**
+     * Scnearios 
+     * 1. User Not logged in - Y 
+     * 2. User logged in and viewing others profile - 
+     * 3. user logged in and viewing own profile. -
+     */
+    public function new_dln(){
+        $param_id = "";
+        if(isset($_GET['id'])){
+            $param_id = $_GET['id'];
+        }else{
+            $param_id = "";
+        }
+        if( ! is_user_logged_in()){
+            return "disabled";
+        }elseif(is_user_logged_in() && !isset($_GET['id'])){
+            return "";
+        }elseif(!is_user_logged_in() && isset($_GET['id'])){
+            return "disabled";
+        }elseif(!is_user_logged_in() && !isset($_GET['id'])){
+            echo '<script>>window.location.href = '.site_url().'</script>';
+        }
     }
 
 	private function left_sidebar() {
@@ -37,18 +57,6 @@ class Profile_Layout {
         <i class="fa fa-fw fa-camera"></i>
         <span>Change Photo</span>
         </button>';
-        $this->password_area = '<div class="row">
-        <div class="col mb-3">
-            <div class="mb-2"><b>Change Password</b></div>
-            <div class="row">
-                  <div class="col">
-                    <div class="form-group">
-                        <label>New Password</label>
-                        <input class="form-control" type="password" id="password"  placeholder="••••••">
-                    </div>
-                </div>
-            </div>
-        </div></div>';
         $this->save_btn = '<div class="row">
         <div class="col d-flex justify-content-end">
             <button class="btn btn-primary" id="save-changes" type="button" name="save-changes">Save Changes</button>
@@ -58,8 +66,10 @@ class Profile_Layout {
 		}elseif(!isset($_GET['id']) && is_user_logged_in()){
             $this->id = get_current_user_id();
         }
-		$html = '       <div class="col">
+        $html = '       <div class="col">
+        <div class="message-success"></div>
       <div class="row">
+     
           <div class="col mb-3">
               <div class="card">
                   <div class="card-body">
@@ -67,10 +77,11 @@ class Profile_Layout {
                           <div class="row">
                               <div class="col-12 col-sm-auto mb-3">
                                   <div class="mx-auto" style="width: 140px;">
-                                      <div class="d-flex justify-content-center align-items-center rounded"
+                                      <div class="d-flex justify-content-center align-items-center rounded profile-form-img"
                                           style="height: 140px; background-color: rgb(233, 236, 239);
                                            background-image: url(' . $user_picture . '); background-position:center; background-size:cover;">
                                       </div>
+                                      <input type="hidden" name="profile_picture_save" id="save_form_picture" value="">
                                   </div>
                                   ' . $this->change_picture . '
                               </div>
@@ -86,7 +97,7 @@ class Profile_Layout {
                                       <div class="text-muted"><small>Joined
                                               ' . $user_data->user_registered . '</small></div>
                                   </div>
-                              </div>
+                             </div>
                           </div>
                           <div id="tab-1" class="tab-content pt-3">
                               <div class="tab-pane active">
@@ -99,8 +110,8 @@ class Profile_Layout {
                                                           <label>Full Name</label>
                                                           <input id="display-name" class="form-control" type="text" name="name"
                                                               placeholder="Enter Name Here"
-                                                              value="' . $user_data->display_name . '" '.$this->dlgn("disabled").'>
-                                                      </div>
+                                                              value="' . $user_data->display_name . '" '.$this->new_dln() .' >
+                                                      </div> 
                                                   </div>
                                                   <div class="col">
                                                       <div class="form-group">
@@ -117,7 +128,7 @@ class Profile_Layout {
                                                           <label>Email</label>
                                                           <input id="email" class="form-control" type="text"
                                                               placeholder="Enter Email Address Here"
-                                                              value="' . $user_data->user_email . '">
+                                                              value="' . $user_data->user_email . '" '.$this->new_dln() .'>
                                                       </div>
                                                   </div>
                                               </div>
@@ -126,7 +137,7 @@ class Profile_Layout {
                                                       <div class="form-group">
                                                           <label>About</label>
                                                           <textarea id="description" class="form-control"  '.$this->disabled.' rows="5"
-                                                              placeholder="My Bio">' . get_user_meta( $this->id, 'description', true ) . '</textarea>
+                                                              placeholder="My Bio" '.$this->new_dln() .'>' . get_user_meta( $this->id, 'description', true ) . '</textarea>
                                                       </div>
                                                   </div>
                                               </div>
@@ -136,7 +147,7 @@ class Profile_Layout {
                                                           <label>IBAN</label>
                                                           <input id="iban" class="form-control" type="text"
                                                               placeholder="Enter your IBAN # Here"
-                                                              value="' . get_user_meta($this->id,"IBAN",true) . '">
+                                                              value="' . get_user_meta($this->id,"IBAN",true) . '" '.$this->new_dln() .'>
                                                       </div>
                                                   </div>
                                                   <div class="col mb-3">
@@ -144,7 +155,7 @@ class Profile_Layout {
                                                           <label>BitCoin Wallet #</label>
                                                           <input id="bitcoin" class="form-control" type="text"
                                                               placeholder="Enter your Bitocin Wallet # Here"
-                                                              value="' . get_user_meta($this->id,"Bitcoin",true). '">
+                                                              value="' . get_user_meta($this->id,"Bitcoin",true). '" '.$this->new_dln() .'>
                                                       </div>
                                                   </div>
                                                   <div class="col mb-3">
@@ -152,7 +163,7 @@ class Profile_Layout {
                                                           <label>Revolut</label>
                                                           <input id="revolut" class="form-control" type="text"
                                                               placeholder="Enter your Revolut # Here"
-                                                              value="' . get_user_meta($this->id,"Revolut",true) . '">
+                                                              value="' . get_user_meta($this->id,"Revolut",true) . '" '.$this->new_dln() .'>
                                                       </div>
                                                   </div>
                                               </div>
@@ -162,13 +173,13 @@ class Profile_Layout {
                                                       <label>Address</label>
                                                       <input id="address" class="form-control" type="text"
                                                           placeholder="Enter Address Here"
-                                                          value="' . get_user_meta($this->id,"Address",true). '">
+                                                          value="' . get_user_meta($this->id,"Address",true). '" '.$this->new_dln() .'>
                                                   </div>
                                               </div>
                                           </div>
                                           </div>
                                       </div>
-                                      '.$this->password_area.'
+                                     
                                       '.$this->save_btn.'
                                   </form>
 
@@ -212,13 +223,23 @@ class Profile_Layout {
           </div>
       </div>
       </div>';
-		}
+		}else{
+            echo '<div class="col-12 col-md-3 mb-3">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h6 class="card-title font-weight-bold">Support</h6>
+                <p class="card-text">Get fast, free help from our friendly assistants.</p>
+                <a href="mailto:'.$user_data->user_email.'"class="btn btn-primary">Contact Us</a>
+            </div>
+        </div>
+        </div>';
+        }
 	}
 
 	public function dynamic_layout() {
 		echo '<div class="container">
       <div class="row flex-lg-nowrap">
-      <div class="message-success"></div>
+     
       ';
 		$this->left_sidebar();
 		$this->profile_main();

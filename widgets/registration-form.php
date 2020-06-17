@@ -265,7 +265,8 @@ class Registration extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		?>
-	
+	<div class="wrapper">
+		
 <div class="row">
 	<div class="col-xl-12">
 		<h3 class="text-center text-white">Become A Donor</h3>
@@ -369,6 +370,7 @@ class Registration extends Widget_Base {
 		</form>
 	</div>
 </div>
+	</div>
 <!-- /.MultiStep Form -->
 <?php
 	}

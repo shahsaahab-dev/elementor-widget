@@ -23,6 +23,11 @@ class Ajax_Calls {
 		add_action( 'wp_ajax_save_donor_information', array( $this, 'save_donor_information' ) );
 		add_action( 'wp_ajax_nopriv_save_donor_information', array( $this, 'save_donor_information' ) );
 
+
+		// Login donor
+		add_action( 'wp_ajax_login_donor', array( $this, 'login_donor' ) );
+		add_action( 'wp_ajax_nopriv_login_donor', array( $this, 'login_donor' ) );
+
 	}
 
 	public function create_account() {
@@ -100,14 +105,24 @@ class Ajax_Calls {
 			$iban = $_POST['iban'];
 			$revolut = $_POST['revolut'];
 			$bitcoin = $_POST['bitcoin'];
+			$profile_picture = $_POST['prof_pic_save'];
 
 			$fields = [$id,$name,$password,$email,$address,$description,$iban,$revolut,$bitcoin];
 
 			$new = new Form_Function();
-			$run = $new->save_from_profile($id,$name,$password,$email,$address,$description,$iban,$revolut,$bitcoin);
+			$run = $new->save_from_profile($id,$name,$password,$email,$address,$description,$iban,$revolut,$bitcoin,$profile_picture);
 
 	}
 
+
+	public function login_donor(){
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+
+		$new = new Form_Function();
+		$new->login_user($username,$password);
+
+	}
 
 
 

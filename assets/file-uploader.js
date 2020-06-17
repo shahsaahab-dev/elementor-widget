@@ -52,16 +52,16 @@ jQuery(document).ready(function ($) {
             return;
         }
         mediaUploader = wp.media.frames.file_frame = wp.media({
-            title: 'Choose a Proof Picture',
+            title: 'Choose a Picture',
             button: {
-                text: 'Choose Proof Picture'
+                text: 'Choose a Picture'
             },
             multiple: false,
         });
         mediaUploader.on("select", function () {
             attachment = mediaUploader.state().get('selection').first().toJSON();
-            $("#proof-picture").val(attachment.url);
-            $(".proof-picture-tag").attr("src", attachment.url);
+            $("#save_form_picture").val(attachment.url);
+            $(".profile-form-img").css('background-image',`url(${attachment.url})`);
         });
 
         mediaUploader.open();

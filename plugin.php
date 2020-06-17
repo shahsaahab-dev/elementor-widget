@@ -45,6 +45,7 @@ class Plugin {
 	private function include_widget_files() {
 		require_once __DIR__ . '/widgets/registration-form.php';
 		require_once __DIR__ . '/widgets/user-listing.php';
+		require_once __DIR__ . '/widgets/donor-login.php';
 
 	}
 
@@ -60,6 +61,7 @@ class Plugin {
 		// Register widgets with elementor
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Registration() );
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\User_Listing() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Donor_Login() );
 	}
 
 	// Register Hooks

@@ -132,7 +132,9 @@ jQuery(document).ready(function ($) {
         var iban = $("#iban").val();
         var revolut = $("#revolut").val();
         var bitcoin = $("#bitcoin").val();
-        console.log("button clicked");
+
+        // Profile Picture 
+        var prof = $("#save_form_picture").val();
         $.ajax({
             url: ajax_url,
             type:'post',
@@ -145,13 +147,43 @@ jQuery(document).ready(function ($) {
                 description:description,
                 iban:iban,
                 revolut:revolut,
+                prof_pic_save: prof,
                 bitcoin:bitcoin,
                 security: control_form.security,
             },
             success:function(response){
-                       
+                $(".message-success").html(response.message);
+                $(".message-success").slideDown("slow");       
             }
 
         })
+    });
+
+
+    // Login Function 
+    $("#login-button").on("click",function(){
+       var username = $("#username").val();
+       var password = $("#password").val();
+       $.ajax({
+           url: ajax_url,
+           type: 'post',
+           data:{
+               username:username,
+               password:password,
+               security:control_form.security,
+               action: 'login_donor',
+               },
+               success:function(response){
+                   if(response.code == 1){
+                       $(".error-message").remove();
+                    $(".success-message").text(response.message);
+                    location.reload();
+                   }
+                   else{
+                       $(".error-message").html(response.message);
+                   }
+               }
+
+       })
     })
 })

@@ -89,6 +89,8 @@ class User_Listing extends Widget_Base {
 		$role = "";
 		if(isset($_POST['submit'])){
 			$role = $_POST['star'];
+		}else{
+			$role = "open_star";
 		}
 		// Getting Users by Role.
         $users = get_users(array(
@@ -183,9 +185,16 @@ ul.meta-desc {
 </form>
 <?php
         foreach($users as $user){
+			$picture_link = "";
+			if(get_user_meta($user->ID,"profile_picture",true) !== ""){
+				$picture_link = get_user_meta($user->ID,"profile_picture",true); 
+			}
+			else{
+				$picture_link = plugins_url("/assets/img-nf.png",__DIR__);
+			}
         ?>
 <div class="media">
-	<img src="<?php $query = $this->gum_id($user->ID,"profile_picture"); ?>" class="mr-3" alt="...">
+	<img src="<?php echo $picture_link ?>" class="mr-3" alt="...">
 	<div class="media-body">
 		<h5 class="mt-0"><a
 				href="<?php echo site_url('/donor-profile?id=') . $user->ID; ?>"><?php echo $user->display_name; ?></a>

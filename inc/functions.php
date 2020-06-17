@@ -10,7 +10,7 @@ class Form_Function {
 			'user_login'    => $username,
 			'user_nicename' => $name,
 			'user_email'    => $email,
-			'role' => 'open_star',
+			'role'          => 'open_star',
 
 		);
 		if ( ! empty( $password ) && ! empty( $username ) && ! empty( $name ) && ! empty( $email ) ) {
@@ -53,87 +53,108 @@ class Form_Function {
 	}
 
 	// Sending Email Function
-	public function send_email_verify($username,$email) {
+	public function send_email_verify( $username, $email ) {
 		$create_nonce = wp_create_nonce( $username . $email );
 		$subject      = __( 'Verify Your Email Address', 'custom-elementor' );
-		$headers = array('Content-Type: text/html; charset=UTF-8');
-		$message = '<div class="confirmation-email-wrapper">
+		$headers      = array( 'Content-Type: text/html; charset=UTF-8' );
+		$message      = '<div class="confirmation-email-wrapper">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 mx-auto">
 					<h3>Confirm your Email</h3>
 					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi corporis, incidunt facilis culpa quae animi nesciunt. Amet iure quisquam velit praesentium eius dolore deserunt officia inventore, enim et quis! Deserunt.</p>
-					<a class="btn btn-primary" href="' . site_url( '/verify-donor?verify_user_account' ) .'">Click Here</a>
+					<a class="btn btn-primary" href="' . site_url( '/verify-donor?verify_user_account' ) . '">Click Here</a>
 				</div>
 			</div>
 		</div>
-	</div>';
-		wp_mail( $email, $subject, $message,$headers);
+		</div>';
+		wp_mail( $email, $subject, $message, $headers );
 	}
 
 
-	public function verify_email($id){
-		$verified = get_user_meta($id,'email_verified');
-		if($verified[0] == 'no'){
-			update_user_meta($id,'email_verified','yes');
-		}
-		else{
-			echo '<script>window.location.href = "'.home_url().'"</script>';
+	public function verify_email( $id ) {
+		$verified = get_user_meta( $id, 'email_verified' );
+		if ( $verified[0] == 'no' ) {
+			update_user_meta( $id, 'email_verified', 'yes' );
+		} else {
+			echo '<script>window.location.href = "' . home_url() . '"</script>';
 		}
 
 	}
 
-	public function donor_info_form($user_id,$iban,$revolut,$bitocoin,$description,$address){
-		update_user_meta($user_id,"IBAN",$iban);
-		update_user_meta($user_id,"Revolut",$revolut);
-		update_user_meta($user_id,"Bitcoin",$bitocoin);
-		update_user_meta($user_id,"description",$description);
-		update_user_meta($user_id,"Address",$address);
-		
-		wp_send_json(array(
-			"code" => 1,
-			"message" => _("Information Updated"),
-		));
+	public function donor_info_form( $user_id, $iban, $revolut, $bitocoin, $description, $address ) {
+		update_user_meta( $user_id, 'IBAN', $iban );
+		update_user_meta( $user_id, 'Revolut', $revolut );
+		update_user_meta( $user_id, 'Bitcoin', $bitocoin );
+		update_user_meta( $user_id, 'description', $description );
+		update_user_meta( $user_id, 'Address', $address );
+
+		wp_send_json(
+			array(
+				'code'    => 1,
+				'message' => _( 'Information Updated' ),
+			)
+		);
 
 		wp_die();
 	}
 
-	
 
-	public function login_user_custom($id,$password){
+	// Login User 
+	public function login_user($username,$password){
 		
+		// First get the user 
+		$creds = array(
+			'user_login' => $username,
+			'user_password' => $password,
+			'remember' => true,
+		);
+		$signin = wp_signon($creds,false);
+		if(is_wp_error($signin)){
+			wp_send_json(array(
+				"code" => 0,
+				"message" => $signin->get_error_message(),
+			));
+		}else{
+			wp_send_json(array(
+				"code" => 1,
+				"message" => __("Login Successful"),
+			));
+		}
+		wp_die();
 	}
 
-
-	// profile Page Functions 
-	function save_from_profile($user_id,$name,$password,$email,$address,$description,$iban,$revolut,$bitcoin){
-		// Account Information 
-		$user_data = array(
-			'ID' => $user_id,
-			'user_email' => $email,
+	// profile Page Functions
+	function save_from_profile( $user_id, $name, $password, $email, $address, $description, $iban, $revolut, $bitcoin, $picture ) {
+		// Account Information
+		$user_data   = array(
+			'ID'           => $user_id,
+			'user_email'   => $email,
 			'display_name' => $name,
 		);
-		$user_update = wp_update_user($user_data);
+		$user_update = wp_update_user( $user_data );
 
-		// Other Information 
-		update_user_meta($user_id,"IBAN",$iban);
-		update_user_meta($user_id,"Revolut",$revolut);
-		update_user_meta($user_id,"Bitcoin",$bitcoin);
-		update_user_meta($user_id,"description",$description);
-		update_user_meta($user_id,"Address",$address);
+		if(!empty($picture)){
+			update_user_meta($user_id,"profile_picture",$picture);
+		}
+		// Other Information
+		update_user_meta( $user_id, 'IBAN', $iban );
+		update_user_meta( $user_id, 'Revolut', $revolut );
+		update_user_meta( $user_id, 'Bitcoin', $bitcoin );
+		update_user_meta( $user_id, 'description', $description );
+		update_user_meta( $user_id, 'Address', $address );
 
-		// Mail the donor to inform about the change. 
-		$subject = __('Your Information on '.site_url().' Has been Updated',"custom-elementor");
-		$message = __("Your Information has been updated.","custom-elementor");
-		wp_mail($email,$subject,$message);
-		// Change Password at the End. 
-		$hashed_passowrd = wp_hash_password( $password );
-		wp_set_password($user_id,$hashed_passowrd);
+		// Mail the donor to inform about the change.
+		$subject = __( 'Your Information on ' . site_url() . ' Has been Updated', 'custom-elementor' );
+		$message = __( 'Your Information has been updated.', 'custom-elementor' );
+		wp_mail( $email, $subject, $message );
 
-		wp_send_json(array(
-			"code" => 1,
-			"message" => __("Information is Updated. Changes Saved","custom-elementor"),
-		));
+		wp_send_json(
+			array(
+				'code'    => 1,
+				'message' => __( 'Information is Updated. Changes Saved', 'custom-elementor' ),
+			)
+		);
 		wp_die();
 	}
 }
