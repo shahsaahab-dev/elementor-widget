@@ -252,4 +252,4 @@ class Profile_Layout {
       </div>';
 	}
 }
-new Profile();
+new Profile_Layout();
