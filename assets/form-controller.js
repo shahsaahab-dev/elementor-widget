@@ -67,6 +67,9 @@ jQuery(document).ready(function ($) {
                 } else if (response.code == 3) {
                     $(".failure-message").text(response.message);
                     $(".failure-message").slideDown("slow");
+                    $("#email").css({
+                        border: '2px solid red',
+                    })
                 } else {
                     $(".failure-message").text(response.message);
                     $(".failure-message").slideDown("slow");

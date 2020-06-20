@@ -91,6 +91,15 @@ class Registration extends Widget_Base {
 					],
 				]
 			);
+			$this->add_group_control(
+				\Elementor\Group_Control_Box_Shadow::get_type(),
+				[
+					'name' => 'box_shadow',
+					'label' => __( 'Form Box Shadow', 'custom-elementor' ),
+					'selector' => '{{WRAPPER}} .fieldset',
+				]
+			);
+	
 		$this->add_control(
 			'form-title-color',
 			[
@@ -102,39 +111,7 @@ class Registration extends Widget_Base {
 		$this->add_control(
 			'step-1-color',
 			[
-				'label' => __("Step 1 Color"), 
-				'type' => \Elementor\Controls_Manager::COLOR,
-				'default' => '#222222',
-			]
-		);
-		$this->add_control(
-			'form-subtitle-color',
-			[
-				'label' => __("Form SubHeading Color"), 
-				'type' => \Elementor\Controls_Manager::COLOR,
-				'default' => '#222222',
-			]
-		);
-		$this->add_control(
-			'steps-text-color',
-			[
-				'label' => __("Steps Text Color"), 
-				'type' => \Elementor\Controls_Manager::COLOR,
-				'default' => '#222222',
-			]
-		);
-		$this->add_control(
-			'steps-color-complete',
-			[
-				'label' => __("Step Completed Color"), 
-				'type' => \Elementor\Controls_Manager::COLOR,
-				'default' => '#222222',
-			]
-		);
-		$this->add_control(
-			'steps-color-incomplete',
-			[
-				'label' => __("Step In Process Color Color"), 
+				'label' => __("Step Text Color"), 
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'default' => '#222222',
 			]
@@ -364,7 +341,7 @@ class Registration extends Widget_Base {
 					if ( ! is_user_logged_in() ) {
 						?>
 			<!-- fieldsets -->
-			<fieldset class="text-center" style=" background: <?php echo $settings['form-background']; ?>;width: <?php echo $settings['form-width']['size'] . $settings['form-width']['unit'] ?>;">
+			<fieldset class="text-center" style="background: <?php echo $settings['form-background']; ?>;width: <?php echo $settings['form-width']['size'] . $settings['form-width']['unit'] ?>;">
 				<h2 class="fs-title">Account Information</h2>
 				<h3>Tell us something about yourself</h3>
 				<div class="first-step-signup">
