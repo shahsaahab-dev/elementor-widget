@@ -2,6 +2,16 @@
 
 class Form_Function {
 
+
+	public function email_check_custom($email){
+		if(email_exists($email)){
+			return 0;
+		}
+		else{
+			return 1;
+		}
+	}
+
 	// Registration Function
 	public function register_user( $username, $name, $email, $phone, $password ) {
 		// Lets create the user here
@@ -13,7 +23,8 @@ class Form_Function {
 			'role'          => 'open_star',
 
 		);
-		if ( ! empty( $password ) && ! empty( $username ) && ! empty( $name ) && ! empty( $email ) ) {
+		$email_auth = $this->email_check_custom($email);
+		if ( ! empty( $password ) && ! empty( $username ) && ! empty( $name ) && ! empty( $email ) && $email_auth == 1  ) {
 			if ( ! strlen( $password ) < 8 && ! strlen( $username ) < 4 && ! strlen( $name ) < 2 && ! strlen( $email ) < 5 ) {
 				$user_id = wp_insert_user( $userdata );
 				update_user_meta( $user_id, 'phone', $phone );
@@ -22,6 +33,11 @@ class Form_Function {
 				wp_set_auth_cookie( $user_id );
 				$this->send_email_verify( $username, $email );
 			}
+		}elseif($email_auth == 0){
+			wp_send_json(array(
+				"code" => 3,
+				"message" => __("User with this Email already Exists, Try Logging In","custom-elementor"),
+			));
 		} else {
 			wp_send_json(
 				array(

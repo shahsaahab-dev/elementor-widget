@@ -95,6 +95,7 @@ class Plugin {
 
 	}
 
+
 }
 
 // Instantiate The Plugin

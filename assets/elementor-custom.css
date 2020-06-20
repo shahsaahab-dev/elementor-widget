@@ -237,3 +237,20 @@ ul#progressbar {
     padding: 10px;
     display:none;
 }
+
+img.profile-picture-tag {
+    max-width: 100px;
+    float: right;
+}
+
+.upload-picture-wrapper {
+    text-align: left;
+}
+
+button#picture-avatar-upload {
+    margin-right: 10px;
+}
+
+button#picture-proof-upload {
+    margin-right: 10px;
+}

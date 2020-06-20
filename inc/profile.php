@@ -9,12 +9,6 @@ class Profile_Layout {
     private $save_btn;
 
 
-    /**
-     * Scnearios 
-     * 1. User Not logged in - Y 
-     * 2. User logged in and viewing others profile - 
-     * 3. user logged in and viewing own profile. -
-     */
     public function new_dln(){
         $param_id = "";
         if(isset($_GET['id'])){
@@ -30,7 +24,9 @@ class Profile_Layout {
             return "disabled";
         }elseif(!is_user_logged_in() && !isset($_GET['id'])){
             echo '<script>>window.location.href = '.site_url().'</script>';
-        }
+        }elseif(get_current_user_id()  !== $_GET['id']){
+			return "disabled";
+		}
     }
 
 	private function left_sidebar() {

@@ -65,10 +65,44 @@ class Registration extends Widget_Base {
 				'default' => '#fefefe',
 			]
 			);
+			$this->add_control(
+				'form-width',
+				[
+					'label' => __( 'Width', 'plugin-domain' ),
+					'type' => Controls_Manager::SLIDER,
+					'size_units' => [ 'px', '%' ],
+					'range' => [
+						'px' => [
+							'min' => 0,
+							'max' => 1000,
+							'step' => 5,
+						],
+						'%' => [
+							'min' => 0,
+							'max' => 100,
+						],
+					],
+					'default' => [
+						'unit' => '%',
+						'size' => 80,
+					],
+					'selectors' => [
+						'{{WRAPPER}} .box' => 'width: {{SIZE}}{{UNIT}};',
+					],
+				]
+			);
 		$this->add_control(
 			'form-title-color',
 			[
 				'label' => __("Form Title Color"), 
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'default' => '#222222',
+			]
+		);
+		$this->add_control(
+			'step-1-color',
+			[
+				'label' => __("Step 1 Color"), 
 				'type' => \Elementor\Controls_Manager::COLOR,
 				'default' => '#222222',
 			]
@@ -142,26 +176,37 @@ class Registration extends Widget_Base {
 
 			]
 			);
-		$this->add_control(
-			'form-heading',
-			[
-				'label' => __("Form Heading Text","custom-elementor"),
-				'type' => \Elementor\Controls_Manager::TEXT,
-				'placeholer' => __("Enter Form Heading Here"),
-				'default' => ("SOME MORE INFORMATION ABOUT YOU"),
+			$this->add_control(
+				'step-1-text',
+				[
+					'label' => __("Step 1 Text","custom-elementor"),
+					'type' => \Elementor\Controls_Manager::TEXT,
+					'placeholer' => __("Enter Form Sub Heading Here"),
+					'default' => ("Account Information"),
+	
+				]
+				);
+			$this->add_control(
+				'step-2-text',
+				[
+					'label' => __("Step 2 Text","custom-elementor"),
+					'type' => \Elementor\Controls_Manager::TEXT,
+					'placeholer' => __("Enter Form Sub Heading Here"),
+					'default' => ("Email Verification"),
+	
+				]
+				);
+			$this->add_control(
+				'step-3-text',
+				[
+					'label' => __("Step 3 Text","custom-elementor"),
+					'type' => \Elementor\Controls_Manager::TEXT,
+					'placeholer' => __("Enter Form Sub Heading Here"),
+					'default' => ("Final Step of Registration"),
+	
+				]
+				);
 
-			]
-			);
-		$this->add_control(
-			'form-sub-heading',
-			[
-				'label' => __("Form Sub Heading Text","custom-elementor"),
-				'type' => \Elementor\Controls_Manager::TEXT,
-				'placeholer' => __("Enter Form Sub Heading Here"),
-				'default' => ("Fill Out the details below"),
-
-			]
-			);
 		$this->end_controls_section();
 
 
@@ -265,25 +310,34 @@ class Registration extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		?>
+
+		<style>
+		input[type="button"],button{
+			background:<?php echo $settings['Button-background-Color']; ?>;
+			color:<?php echo $settings['Button-text-Color'] ?>;
+		}
+</style>
+
+
 	<div class="wrapper">
 		
 <div class="row">
 	<div class="col-xl-12">
-		<h3 class="text-center text-white">Become A Donor</h3>
+		<h3 style="color:<?php echo $settings['form-title-color'] ?>;text-align:<?php echo $settings['top-heading-alignment'] ?>"><?php echo $settings['main-title'] ?></h3>
 		<form id="msform" method="post" enctype="multipart/form-data" action="javascript:void()">
 			<!-- progressbar -->
 			<ul id="progressbar">
 				<?php $verification = get_user_meta( get_current_user_id(), 'email_verified',true ); ?>
-				<li class="
+				<li style="color:<?php echo $settings['step-1-color'] ?>" class="
 						<?php
 						if ( ! is_user_logged_in() ) {
 							echo 'active';
 						} else {
 							echo 'completed';}
 						?>
-						">Account Information</li>
+						"><?php echo $settings['step-1-text']; ?></li>
 
-				<li class=" 
+				<li style="color:<?php echo $settings['step-1-color'] ?>" class=" 
 						<?php
 						if ( is_user_logged_in() && $verification == 'no' ) {
 							echo 'active';
@@ -292,23 +346,25 @@ class Registration extends Widget_Base {
 						} else {
 							echo 'completed';}
 						?>
-						">Email Verification</li>
-				<li class="
+						"><?php echo $settings['step-2-text'] ?></li>
+				<li style="color:<?php echo $settings['step-1-color'] ?>" class="
 						<?php
 						
 						if ( is_user_logged_in() && $verification == 'yes') {
 							echo 'active';
 							
-						} else {
-							echo '';}
+						} 
+						else {
+							echo '';
+						}
 						?>
-						">Final Step of Verification</li>
+						"><?php echo $settings['step-3-text'] ?></li>
 			</ul>
 			<?php
 					if ( ! is_user_logged_in() ) {
 						?>
 			<!-- fieldsets -->
-			<fieldset class="text-center">
+			<fieldset class="text-center" style=" background: <?php echo $settings['form-background']; ?>;width: <?php echo $settings['form-width']['size'] . $settings['form-width']['unit'] ?>;">
 				<h2 class="fs-title">Account Information</h2>
 				<h3>Tell us something about yourself</h3>
 				<div class="first-step-signup">
@@ -329,16 +385,16 @@ class Registration extends Widget_Base {
 			<?php
 					if ( is_user_logged_in() && $verification == 'no' ) {
 						?>
-			<fieldset class="text-center">
+			<fieldset class="text-center" style="background: <?php echo $settings['form-background']; ?>;width: <?php echo $settings['form-width']['size'] . $settings['form-width']['unit'] ?>; ?>;">
 				<h2 class="fs-title text-center">Email Verification</h2>
 				<h3 class="text-center">Verify Your Email Address</h3>
 				<p class="text-center">Looks like your email isnt verified Yet. Verify and Refresh this Page</p>
 			</fieldset>
 			<?php } ?>
 
-			<fieldset class="text-center">
+			<fieldset class="text-center" style=" background: <?php echo $settings['form-background']; ?>;width: <?php echo $settings['form-width']['size'] . $settings['form-width']['unit'] ?>;">
 				<h2 class="fs-title">Some More information About you</h2>
-				<h3 class="fs-subtitle">Your presence on the social network</h3>
+				<h3 class="fs-subtitle">Fill out the details Below to Complete your Profile.</h3>
 				<div class="last-step-signup">
 					<div class="success-message-f"></div>
 					<div class="failure-message-f"></div>

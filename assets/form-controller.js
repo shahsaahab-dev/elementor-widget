@@ -60,13 +60,14 @@ jQuery(document).ready(function ($) {
                     $(".first-step-signup").slideDown("slow");
                     location.reload();
 
-                }
-                else if (response.code == 2) {
+                } else if (response.code == 2) {
                     $(".failure-message").text(response.message);
                     $(".failure-message").slideDown("slow");
 
-                }
-                else {
+                } else if (response.code == 3) {
+                    $(".failure-message").text(response.message);
+                    $(".failure-message").slideDown("slow");
+                } else {
                     $(".failure-message").text(response.message);
                     $(".failure-message").slideDown("slow");
                 }
@@ -106,13 +107,11 @@ jQuery(document).ready(function ($) {
                     $(".success-message-f").slideDown("slow");
                     $(".first-step-signup").slideDown("slow");
 
-                }
-                else if (response.code == 2) {
+                } else if (response.code == 2) {
                     $(".failure-message-f").text(response.message);
                     $(".failure-message-f").slideDown("slow");
 
-                }
-                else {
+                } else {
                     $(".failure-message-f").text(response.message);
                     $(".failure-message-f").slideDown("slow");
                 }
@@ -123,7 +122,7 @@ jQuery(document).ready(function ($) {
 
 
     // Save Changes from Profile Page 
-    $("#save-changes").on("click",function(){
+    $("#save-changes").on("click", function () {
         var name = $("#display-name").val();
         var email = $("#email").val();
         var password = $("#password").val();
@@ -137,23 +136,23 @@ jQuery(document).ready(function ($) {
         var prof = $("#save_form_picture").val();
         $.ajax({
             url: ajax_url,
-            type:'post',
-            data:{
-                action:'save_donor_information',
-                name:name,
-                email:email,
-                password:password,
-                address:address,
-                description:description,
-                iban:iban,
-                revolut:revolut,
+            type: 'post',
+            data: {
+                action: 'save_donor_information',
+                name: name,
+                email: email,
+                password: password,
+                address: address,
+                description: description,
+                iban: iban,
+                revolut: revolut,
                 prof_pic_save: prof,
-                bitcoin:bitcoin,
+                bitcoin: bitcoin,
                 security: control_form.security,
             },
-            success:function(response){
+            success: function (response) {
                 $(".message-success").html(response.message);
-                $(".message-success").slideDown("slow");       
+                $(".message-success").slideDown("slow");
             }
 
         })
@@ -161,29 +160,28 @@ jQuery(document).ready(function ($) {
 
 
     // Login Function 
-    $("#login-button").on("click",function(){
-       var username = $("#username").val();
-       var password = $("#password").val();
-       $.ajax({
-           url: ajax_url,
-           type: 'post',
-           data:{
-               username:username,
-               password:password,
-               security:control_form.security,
-               action: 'login_donor',
-               },
-               success:function(response){
-                   if(response.code == 1){
-                       $(".error-message").remove();
+    $("#login-button").on("click", function () {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        $.ajax({
+            url: ajax_url,
+            type: 'post',
+            data: {
+                username: username,
+                password: password,
+                security: control_form.security,
+                action: 'login_donor',
+            },
+            success: function (response) {
+                if (response.code == 1) {
+                    $(".error-message").remove();
                     $(".success-message").text(response.message);
                     location.reload();
-                   }
-                   else{
-                       $(".error-message").html(response.message);
-                   }
-               }
+                } else {
+                    $(".error-message").html(response.message);
+                }
+            }
 
-       })
+        })
     })
 })
