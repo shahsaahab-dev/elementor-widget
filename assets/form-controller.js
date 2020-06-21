@@ -179,7 +179,7 @@ jQuery(document).ready(function ($) {
                 if (response.code == 1) {
                     $(".error-message").remove();
                     $(".success-message").text(response.message);
-                    location.reload();
+                    window.location.href = site_url + '/donor-profile';
                 } else {
                     $(".error-message").html(response.message);
                 }

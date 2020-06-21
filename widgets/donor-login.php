@@ -116,7 +116,7 @@ form{
 				<button type="button" class="btn btn-primary btn-block" id="login-button">Sign in</button>
 				
 				<div class="sign-up">
-					Don't have an account? <a href="#">Create One</a>
+					Don't have an account? <a href="<?php echo site_url() . '/register-as-donor'; ?>">Create One</a>
 				</div>
 			</form>
 		</div>
